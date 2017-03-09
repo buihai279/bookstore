@@ -31,7 +31,7 @@
       </div>
     </form>
     <div class="row">
-      <form class="col s12" id="fmtDeleteCategory" method="POST" action="{{ route('deleteCategory',$category->id) }}">
+      <form class="col s12 fmtDelete" method="POST" action="{{ route('deleteCategory',$category->id) }}">
         {{ csrf_field() }}
         {{ method_field('DELETE') }}
          <button class="btn waves-effect waves-light red" data-target="modalConfirmDelete"  type="submit" name="btn_delete" value="delete" >Xóa
@@ -57,9 +57,6 @@
       </form>
     </ul>
 @stop
-
-
-
   <!-- Modal Structure -->
   <div id="modalConfirmDelete" class="modal sm-modal">
     <div class="modal-content">
@@ -68,6 +65,6 @@
     </div>
     <div class="modal-footer">
       <a href="" class="modal-action modal-close waves-effect waves-light btn-flat ">Đóng</a>
-      <a href="" id="btnDeleteCategory" class="modal-action modal-close waves-effect waves-light btn-flat ">Xóa</a>
+      <a href="" class="btnDelete modal-action modal-close waves-effect waves-light btn-flat ">Xóa</a>
     </div>
   </div>

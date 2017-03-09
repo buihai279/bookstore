@@ -1,4 +1,3 @@
-
 @extends('back-end.layouts.master')
 @section('left-sidebar')
 <script src="{{ URL::asset('bh279_back-end/js/jquery-ui.min.js') }}"></script>

@@ -59,20 +59,21 @@
             <div class="item" ><a href="/"><i class="material-icons">library_books</i><span>Sách</span></a></div>
             <div class="item" ><a href="{{ route('manager-user') }}"> <i class="material-icons">supervisor_account</i><span>Tài khoản</span></a></div>
             <div class="item" ><a href="{{ route('indexCategory') }}"><i class="material-icons">format_list_numbered</i> <span>Danh mục</span></a></div>
-            <div class="item" ><a href="/"> <i class="material-icons">perm_contact_calendar</i><span>Tác giả</span></a></div>
-            <div class="item" ><a href="/"> <i class="material-icons">business</i> <span>Nhà cung cấp</span></a></div>
+            <div class="item" ><a href="{{ route('author.index') }}"> <i class="material-icons">perm_contact_calendar</i><span>Tác giả</span></a></div>
+            <div class="item" ><a href="{{ route('company.index') }}"> <i class="material-icons">business</i> <span>Nhà cung cấp</span></a></div>
             <div class="item" ><a href="/"><i class="material-icons">format_list_numbered</i> <span>Đơn hàng</span></a></div>
             <div class="item" ><a href="/">  <i class="material-icons">credit_card</i><span>Thanh toán</span></a></div>
             <div class="item" ><a href="/"> <i class="material-icons">input</i> <span>Nhập hàng</span></a></div>
-            <div class="item" ><a href="/">  <i class="material-icons">photo_size_select_actual</i><span>Slide</span></a></div>
+            <div class="item" ><a href="{{ route('slide.index') }}">  <i class="material-icons">photo_size_select_actual</i><span>Slide</span></a></div>
+            <div class="item" ><a href="{{ route('news.index') }}">  <i class="material-icons">news</i><span>Tin tức</span></a></div>
         </div>
     </div>
     @show
     <div class="row">
-        <div class="col l2  m2  s3 menu">
+        <div class="col l2  m2  s12 menu">
             @yield('left-sidebar')
         </div>
-        <div class="col l10  m10  s9">
+        <div class="col l10  m10  s12">
             @yield('content')
         </div>
     </div>

@@ -47,3 +47,14 @@ Route::post('sap-xep-danh-muc','CategoryController@order')->name('submitOrderCat
 
 Route::post('them-danh-muc','CategoryController@store')->name('storeCategory');
 
+
+Route::get('author/list','AuthorController@getlist')->name('listAuthor');
+Route::get('company/list','CompanyController@getlist')->name('listCompany');
+Route::get('news/list','NewsController@getlist')->name('listNews');
+Route::get('slide/list','SlideController@getlist')->name('listSlide');
+Route::resource('author', 'AuthorController');
+Route::resource('company', 'CompanyController');
+// Route::resource('company', 'CompanyController');
+Route::resource('news', 'NewsController');
+Route::resource('slide', 'SlideController');
+

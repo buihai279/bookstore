@@ -18,6 +18,11 @@
                   <input placeholder="Placeholder" name="txtNameCategory" id="category_name" type="text" class="validate">
                   
                   <label for="category_name">Tên danh mục</label>
+                  @if ($errors->has('txtNameCategory'))
+                      <span class="red-text">
+                          <strong>{{ $errors->first('txtNameCategory') }}</strong><br>
+                      </span>
+                  @endif
                 </div>
                 <div class="input-field">
                   <select name="parent_id">
