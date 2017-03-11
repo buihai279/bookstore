@@ -108,9 +108,9 @@ class NewsController extends Controller
                         ->withInput();
         }
         $news = News::find($id);
-        // $news->news_name = $request->txtNamenews;
-        // $news->news_info = $request->txtnewsInfo;
-        // $news->news_image = $request->filenewsImg;
+        $news->title = $request->txtTitle;
+        $news->description = $request->txtDescription;
+        $news->content = $request->txtContent;
         $news->save();
         return redirect()->route('news.index');
     }
@@ -123,6 +123,7 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
+        // dd($id);
         if (News::find($id)!=null) {
             News::destroy($id);
             return redirect()->route('news.index');

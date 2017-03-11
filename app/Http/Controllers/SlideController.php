@@ -101,6 +101,7 @@ class SlideController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->cb_status = ($request->cb_status==null) ? false : true ;
         $validator = Validator::make($request->all(), [
             // 'txtName' => 'required|min:1',
             // 'txtslide' => '',
@@ -113,9 +114,9 @@ class SlideController extends Controller
                         ->withInput();
         }
         $slide = Slide::find($id);
-        // $slide->slide_name = $request->txtName;
-        // $slide->slide_info = $request->txtslide;
-        // $slide->slide_image = $request->fileSlideImg;
+        $slide->link = $request->txtLinkSlide;
+        $slide->status = $request->cb_status;
+        $slide->slide_image = $request->fileNameImg;
         $slide->save();
         return redirect()->route('slide.index');
     }
