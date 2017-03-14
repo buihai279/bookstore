@@ -20,7 +20,8 @@ class UsersSeederTable extends Seeder
 			            'phone' => 1664872279,
 			            'address' =>str_random(10).'hà nội',
 			            'level' =>2,
-			            'created_at' =>new DateTime()
+			            'created_at' =>new DateTime(),
+						'updated_at' => new DateTime()
 
 			        ],
 			        [
@@ -30,7 +31,8 @@ class UsersSeederTable extends Seeder
 			            'phone' => 1664872279,
 			            'address' =>str_random(10).'hà nội',
 			            'level' =>1,
-			            'created_at' =>new DateTime()
+			            'created_at' =>new DateTime(),
+						'updated_at' => new DateTime()
 
 			        ],
 			        [
@@ -40,7 +42,8 @@ class UsersSeederTable extends Seeder
 			            'phone' => 1664872279,
 			            'address' =>str_random(10).'hà nội',
 			            'level' =>0,
-			            'created_at' =>new DateTime()
+			            'created_at' =>new DateTime(),
+						'updated_at' => new DateTime()
 
 			        ],
 			        [
@@ -50,7 +53,8 @@ class UsersSeederTable extends Seeder
 			            'phone' => 1664872279,
 			            'address' =>str_random(10).'hà nội',
 			            'level' =>0,
-			            'created_at' =>new DateTime()
+			            'created_at' =>new DateTime(),
+						'updated_at' => new DateTime()
 
 			        ],
 			        [
@@ -60,7 +64,8 @@ class UsersSeederTable extends Seeder
 			            'phone' => 1664872279,
 			            'address' =>str_random(10).'hà nội',
 			            'level' =>0,
-			            'created_at' =>new DateTime()
+			            'created_at' =>new DateTime(),
+						'updated_at' => new DateTime()
 
 			        ]
 	         	]

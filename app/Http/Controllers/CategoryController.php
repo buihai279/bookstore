@@ -233,5 +233,15 @@ class CategoryController extends Controller
         }
         echo "Có lỗi xảy ra";
     }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getlist()
+    {
+        return Category::get();
+    }
 
 }

@@ -70,12 +70,8 @@
     </div>
     @show
     <div class="row">
-        <div class="col l2  m2  s12 menu">
             @yield('left-sidebar')
-        </div>
-        <div class="col l10  m10  s12">
             @yield('content')
-        </div>
     </div>
     @section('footer')
     @show

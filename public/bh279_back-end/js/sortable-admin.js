@@ -4,7 +4,10 @@
   //     });
   //   } );
 
-
+ $( function() {
+    $( "#sortable" ).sortable();
+    $( "#sortable" ).disableSelection();
+  } );
   $( function() {
     $( ".sortablecolumn" ).sortable({
       connectWith: ".sortablecolumn",

@@ -31,5 +31,4 @@
 @section('footer')
   <script src="{{ URL::asset('lib/controller/CategoryController.js') }}"></script>
   <script src="{{ URL::asset('bh279_back-end/js/sortable-admin.js') }}"></script>
-
 @stop

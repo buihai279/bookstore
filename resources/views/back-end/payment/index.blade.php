@@ -1,6 +1,6 @@
-@extends('back-end.layouts.slide-master')
-@section('slide-content')
- 
+@extends('back-end.layouts.news-master')
+@section('news-content')
+ @verbatim 
 
     <div class="row">
         <div ng-controller="MyController" class="my-controller">
@@ -14,40 +14,35 @@
               <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
             </div>
           </div>
-          <form action="{{ route('slide.order') }}" method="POST">
-          {{ csrf_field() }}
-          @verbatim 
               <table>
-		        <thead>
-		          <tr>
-		              <th data-field="id">Id</th>
-		              <th data-field="name">Ảnh slide</th>
-		              <th data-field="image">link</th>
-		              <th data-field="image">status</th>
-		              <th data-field="total">order</th>
-		              <th data-field="total">created_at</th>
-		          </tr>
-		        </thead>
+            <thead>
+              <tr>
+                  <th data-field="id">Id</th>
+                  <th data-field="name">Ảnh news</th>
+                  <th data-field="image">link</th>
+                  <th data-field="image">status</th>
+                  <th data-field="total">order</th>
+                  <th data-field="total">created_at</th>
+              </tr>
+            </thead>
 
-		        <tbody id="sortable">
-		          <tr class="" dir-paginate="slide in slides | filter:q | itemsPerPage: pageSize" current-page="currentPage">
-                <td>{{slide.id}}<input type="text" name="order[]" value="{{slide.id}}" hidden="hidded"></td>
-                <td>{{slide.slide_image}}</td>
-		            <td>{{slide.link}}</td>
-		            <td>{{slide.status}}</td>
-		            <td>{{slide.order}}</td>
-		            <td>{{slide.created_at}}</td>
+            <tbody>
+              <tr dir-paginate="news in newss | filter:q | itemsPerPage: pageSize" current-page="currentPage">
+                <td>{{news.id}}</td>
+                <td>{{news.title}}</td>
+                <td>{{news.description}}</td>
+                <td>{{news.content}}</td>
+                <td>{{news.created_at}}</td>
+                <td>{{news.updated_at}}</td>
 
-		            <td>
-			            <a href="slide/{{slide.id}}/edit" class="waves-effect waves-light btn" style="width: 35px;padding: 0">
-				            <i class="material-icons">edit</i>
-			          	</a>
-		          </td>
-		          </tr>
-		        </tbody>
-		      </table>
-          <button type="submit">submit</button>
-          </form>
+                <td>
+                  <a href="news/{{news.id}}/edit" class="waves-effect waves-light btn" style="width: 35px;padding: 0">
+                    <i class="material-icons">edit</i>
+                  </a>
+              </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <div ng-controller="OtherController" class="other-controller">
@@ -78,7 +73,5 @@
     </div>
 @endverbatim
   <script src="{{ URL::asset('lib/dirPagination.js') }}"></script>
-  <script src="{{ URL::asset('lib/controller/SlideController.js') }}"></script>
-<script src="{{ URL::asset('bh279_back-end/js/jquery-ui.min.js') }}"></script>
-  <script src="{{ URL::asset('bh279_back-end/js/sortable-admin.js') }}"></script>
+  <script src="{{ URL::asset('lib/controller/NewsController.js') }}"></script>
 @stop

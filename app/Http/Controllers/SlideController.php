@@ -143,6 +143,22 @@ class SlideController extends Controller
      */
     public function getlist()
     {
-        return Slide::orderBy('updated_at','desc')->get();
+        return Slide::orderBy('order')->get();
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function order(Request $request)
+    {
+        // dd($request);
+        foreach ($request->order as $key => $value) {
+            $slide = Slide::find($value);
+            $slide->order = $key+1;
+            $slide->save();
+        }
+        return redirect()->route('slide.index');
     }
 }

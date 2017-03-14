@@ -59,12 +59,24 @@
         </div>
       </div>
     </form>
-     <a class="btn waves-effect waves-light" type="submit" value="add" name="btn_add" onclick="event.preventDefault();document.getElementById('form-destroy').submit()">Xóa
-        <i class="material-icons right">send</i>
-      </a>
+
+   <button class="btn waves-effect waves-light red" data-target="modalConfirmDelete"  type="submit" name="btn_delete" value="delete" >Xóa
+      <i class="material-icons right">delete</i>
+    </button>
       <form id="form-destroy" action="{{ route('slide.destroy',$slide->id) }}" method="POST" style="display: none;">
           {{ csrf_field() }}
   {{ method_field('DELETE') }}
       </form>
   </div>
 @stop
+  <!-- Modal Structure -->
+  <div id="modalConfirmDelete" class="modal sm-modal">
+    <div class="modal-content">
+      <h4 class="red-text ">Bạn có thực sự muốn xóa</h4>
+      <p>Các danh mục con và sản phẩm của danh mục này sẽ bị xóa</p>
+    </div>
+    <div class="modal-footer">
+      <a href="" class="modal-action modal-close waves-effect waves-light btn-flat ">Đóng</a>
+      <a href="" onclick="event.preventDefault();document.getElementById('form-destroy').submit()" class="btnDelete modal-action modal-close waves-effect waves-light btn-flat ">Xóa</a>
+    </div>
+  </div>
