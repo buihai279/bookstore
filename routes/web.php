@@ -15,9 +15,7 @@ Auth::routes();
 Route::get('/', function () {
     return view('front-end.home');
 });
-Route::get('/home', function () {
-    return view('front-end.home');
-})->name('homepage');
+Route::get('/home','HomeController@index')->name('homepage');
 
 Route::get('/trang-quan-tri', function () {
     return view('back-end.dashboard');
@@ -51,8 +49,10 @@ Route::get('slide/list','SlideController@getlist')->name('listSlide');
 Route::get('category/list','CategoryController@getlist')->name('listCategory');
 Route::post('slide/order', 'SlideController@order')->name('slide.order');
 Route::get('book/list','BookController@getlist')->name('listBook');
+Route::get('sale/list','SaleController@getlist')->name('listSale');
 Route::resource('author', 'AuthorController');
 Route::resource('company', 'CompanyController');
 Route::resource('news', 'NewsController');
 Route::resource('slide', 'SlideController');
 Route::resource('book', 'BookController');
+Route::resource('sale', 'SaleController');

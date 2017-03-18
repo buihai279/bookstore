@@ -15,7 +15,6 @@
 <link href="{{ URL::asset('bh279_back-end/owl-carousel/owl.theme.default.min.css') }}" rel="stylesheet" />
 <link href="{{ URL::asset('bh279_back-end/css/style.css' )}}" rel="stylesheet") />
 <script src="{{ URL::asset('bh279_back-end/owl-carousel/owl.carousel.min.js') }}"></script>
-<script src="{{ URL::asset('bh279_back-end/js/script-admin.js') }}"></script>
 <script src="{{ URL::asset('lib/angular.min.js') }}"></script>
 <script src="{{ URL::asset('lib/app.js') }}"></script>
 </head>
@@ -54,30 +53,51 @@
     </div>
     {{-- end row --}}
     <div class="row">
-        <div class="owl-carousel" style="border-bottom: 1px solid #e0e0e0">
-            <div class="item" ><a href="/"><i class="material-icons">dashboard</i><span>Bảng điều khiển</span></a></div>
-            <div class="item" ><a href="{{ route('book.index') }}"><i class="material-icons">library_books</i><span>Sách</span></a></div>
-            <div class="item" ><a href="{{ route('manager-user') }}"> <i class="material-icons">supervisor_account</i><span>Tài khoản</span></a></div>
-            <div class="item" ><a href="{{ route('indexCategory') }}"><i class="material-icons">format_list_numbered</i> <span>Danh mục</span></a></div>
-            <div class="item" ><a href="{{ route('author.index') }}"> <i class="material-icons">perm_contact_calendar</i><span>Tác giả</span></a></div>
-            <div class="item" ><a href="{{ route('company.index') }}"> <i class="material-icons">business</i> <span>Nhà cung cấp</span></a></div>
-            <div class="item" ><a href="/"><i class="material-icons">format_list_numbered</i> <span>Đơn hàng</span></a></div>
-            <div class="item" ><a href="/">  <i class="material-icons">credit_card</i><span>Thanh toán</span></a></div>
-            <div class="item" ><a href="/"> <i class="material-icons">input</i> <span>Nhập hàng</span></a></div>
-            <div class="item" ><a href="{{ route('slide.index') }}">  <i class="material-icons">photo_size_select_actual</i><span>Slide</span></a></div>
-            <div class="item" ><a href="{{ route('news.index') }}">  <i class="material-icons">news</i><span>Tin tức</span></a></div>
+        <div class="owl-carousel owl-carousel-menu " style="border-bottom: 1px solid #e0e0e0">
+            <div class="item">
+                <a href="/"><i class="material-icons">dashboard</i><span>Bảng điều khiển</span></a>
+            </div>
+            <div class="item">
+                <a href="{{ route('book.index') }}"><i class="material-icons">library_books</i><span>Sách</span></a>
+            </div>
+            <div class="item">
+                <a href="{{ route('manager-user') }}"> <i class="material-icons">supervisor_account</i><span>Tài khoản</span></a>
+            </div>
+            <div class="item">
+                <a href="{{ route('indexCategory') }}"><i class="material-icons">format_list_numbered</i> <span>Danh mục</span></a>
+            </div>
+            <div class="item">
+                <a href="{{ route('author.index') }}"> <i class="material-icons">perm_contact_calendar</i><span>Tác giả</span></a>
+            </div>
+            <div class="item">
+                <a href="{{ route('company.index') }}"> <i class="material-icons">business</i> <span>Nhà cung cấp</span></a>
+            </div>
+            <div class="item">
+                <a href="/"><i class="material-icons">format_list_numbered</i> <span>Đơn hàng</span></a>
+            </div>
+            <div class="item">
+                <a href="/">  <i class="material-icons">credit_card</i><span>Thanh toán</span></a>
+            </div>
+            <div class="item">
+                <a href="{{ route('sale.index') }}">  
+                    <i class="material-icons">credit_card</i><span>Mã giảm giá</span>
+                </a>
+            </div>
+            <div class="item">
+                <a href="{{ route('slide.index') }}">  <i class="material-icons">photo_size_select_actual</i><span>Slide</span></a>
+            </div>
+            <div class="item">
+                <a href="{{ route('news.index') }}">  <i class="material-icons">news</i><span>Tin tức</span></a>
+            </div>
         </div>
     </div>
     @show
     <div class="row">
-        <div class="col l2  m2  s12 menu">
-            @yield('left-sidebar')
-        </div>
-        <div class="col l10  m10  s12">
-            @yield('content')
-        </div>
+        @yield('left-sidebar')
+        @yield('content')
     </div>
     @section('footer')
     @show
+<script src="{{ URL::asset('bh279_back-end/js/script-admin.js') }}"></script>
 </body>
 </html>

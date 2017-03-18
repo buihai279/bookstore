@@ -14,13 +14,13 @@ class CreateBooksTable extends Migration
     public function up()
     {
         Schema::create('books', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('book_name');
             $table->text('description')->nullable();
             $table->date('publish_date')->nullable();
-            $table->integer('author_id')->nullable();
-            $table->integer('company_id')->nullable();
-            $table->integer('category_id')->nullable();
+            $table->integer('author_id')->nullable()->unsigned();
+            $table->integer('company_id')->nullable()->unsigned();
+            $table->integer('category_id')->nullable()->unsigned();
             $table->string('publishing_house')->nullable();
             $table->string('translator')->nullable();
             $table->integer('number_of_pages')->nullable();
@@ -29,6 +29,9 @@ class CreateBooksTable extends Migration
             $table->bigInteger('cover_price')->nullable();
             $table->string('book_image')->nullable();
             $table->text('images')->nullable();
+            $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -40,6 +43,8 @@ class CreateBooksTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('warehousings');
         Schema::dropIfExists('books');
+        // $table->dropForeign('books_book_id_foreign');
     }
 }

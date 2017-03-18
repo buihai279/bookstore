@@ -24,6 +24,26 @@ $( document ).ready(function(){
       // $( '.swiper-pagination span' ).eq( index).css( "background-color", "red" );
   // console.log( index + ": " + $( this ).text() );
 // });
+$('.show-menu').hover(function() {
+    $('#fixed-menu').show();
+    $('#overlay-body').show();
+  }, function() {
+    $('#fixed-menu').hover(
+        function(){
 
-  });
+        },function(){
+          $('#fixed-menu').hide();
+          $('#overlay-body').hide();
+    });
+  })
+$(window).scroll(function() {
+   if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+       $('.show-menu').show();
+   }
+   if($(window).scrollTop() + $(window).height() < $(document).height() - 100) {
+       $('.show-menu').hide();
+   }
+});
+});
+
 

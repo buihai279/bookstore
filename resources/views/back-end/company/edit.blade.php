@@ -2,11 +2,11 @@
 @section('company-content')
 
 <div class="row"> 
-	<form class="col s12" method="POST" action="{{ route('company.update',$company->id) }}">
+	<form class="col s12 m6" method="POST" action="{{ route('company.update',$company->id) }}">
       {{ csrf_field() }}
       {{ method_field('PUT') }}
       <div class="row">
-        <div class="input-field col s12 l8">
+        <div class="input-field col s12">
         <i class="material-icons prefix">account_circle</i>
           <input placeholder="Nhập tên Nhà cung cấp" id="icon_prefix" name="txtNameCompany" type="text" class="validate" required autofocus value="{{$company->company_name}}">
           <label for="icon_prefix">Tên Nhà cung cấp</label>
@@ -16,7 +16,7 @@
               </span>
           @endif
         </div>
-        <div class="input-field col s12 l8">
+        <div class="input-field col s12">
 	          <i class="material-icons prefix">mode_edit</i>
 	          <textarea id="icon_prefix2" class="materialize-textarea" name="txtCompanyInfo">{{$company->company_info}}</textarea>
 	          <label for="icon_prefix2">Thông tin Nhà cung cấp</label>
@@ -29,7 +29,7 @@
           
       </div>
       <div class="row">
-	      <div class="file-field input-field s12 l8">
+	      <div class="file-field input-field s12">
 		      <div class="btn">
 		        <span>Chọn Ảnh</span>
 		        <input type="file" name="fileCompanyImg">
@@ -39,12 +39,6 @@
 		      </div>
 	    	</div>
     	</div>
-     <div class="row">
-        <div class="input-field col s12 l8">
-          <input disabled value="1" id="disabled" type="text" class="validate">
-          <label for="disabled">Tổng số sách</label>
-        </div>
-      </div>
       <div class="row">
         <div class="input-field col s3">
            <button class="btn waves-effect waves-light" type="submit"  value="edit" name="btn_edit">Sửa
@@ -53,6 +47,19 @@
         </div>
       </div>
     </form>
+
+  <div class="col s12 m6">
+    @if (count($books)>0)
+      <h4 class="red-text">Công ty phát hành {{count($books)}} đầu sách</h4>
+      <ul>
+        @foreach ($books as $element)
+          <li>
+            {{$element->book_name}}
+          </li>
+        @endforeach      
+      </ul>
+    @endif
+  </div>
   </div>
 <form class="col s12 fmtDelete" method="POST" action="{{ route('company.destroy',$company->id) }}">
         {{ csrf_field() }}

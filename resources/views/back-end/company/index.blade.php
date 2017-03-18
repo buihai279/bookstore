@@ -30,9 +30,8 @@
 		            <td>{{company.id}}</td>
 		            <td>{{company.company_name}}</td>
 		            <td>{{company.company_info}}</td>
-		            <td>{{company.company_image}}</td>
-		            <td> </td>
-
+                <td>{{company.company_image}}</td>
+		            <td>{{company.total}}</td>
 		            <td>
 			            <a href="company/{{company.id}}/edit" class="waves-effect waves-light btn" style="width: 35px;padding: 0">
 				            <i class="material-icons">edit</i>

@@ -64,7 +64,7 @@ class CategoryController extends Controller
      * @param  
      * @return \Illuminate\Http\Response
      */
-    public function listCategories()
+    public static function listCategories()
     {
        return $categories= Category::orderBy('parent_id', 'asc')->orderBy('order', 'asc')->select('id','category_name', 'parent_id')->get();
     }
@@ -74,16 +74,16 @@ class CategoryController extends Controller
      * @param  
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public static function show()
     {
-        return $this->showCategories($this->listCategories());
+        return CategoryController::showCategories(CategoryController::listCategories());
     }
-    public function getSelect($id)
+    public static function getSelect($id)
     {
-        return $this->selectCategories($id,$this->listCategories());
+        return CategoryController::selectCategories($id,CategoryController::listCategories());
     }
-    //  HÀM ĐỆ QUY HIỂN THỊ CATEGORIES
-    public function showCategories($categories, $parent_id = 0, $char = '|----',$tableStr='')
+    //  HÀM ĐỆ QUY HIỂN THỊ CATEGORIES dang bang
+    public static function showCategories($categories, $parent_id = 0, $char = '|----',$tableStr='')
     {
         foreach ($categories as $key => $item)
         {
@@ -104,7 +104,7 @@ class CategoryController extends Controller
                 unset($categories[$key]);
                  // echo $item->id;
                 // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
-                $tableStr=$this->showCategories($categories, $item->id, $char.'|------',$tableStr);
+                $tableStr=CategoryController::showCategories($categories, $item->id, $char.'|------',$tableStr);
             }
         }
 
@@ -112,7 +112,7 @@ class CategoryController extends Controller
     }
 
     //  HÀM ĐỆ QUY HIỂN THỊ CATEGORIES
-    public function selectCategories($id,$categories, $parent_id = 0, $char = '|----',$tableStr='')
+    public static function selectCategories($id,$categories, $parent_id = 0, $char = '|----',$tableStr='')
     {
         $selectId=0;
         foreach ($categories as $value) {
@@ -137,7 +137,7 @@ class CategoryController extends Controller
                 unset($categories[$key]);
                  // echo $item->id;
                 // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
-                $tableStr=$this->selectCategories($id,$categories, $item->id, $char.'|------',$tableStr);
+                $tableStr=CategoryController::selectCategories($id,$categories, $item->id, $char.'|------',$tableStr);
             }
         }
 
@@ -151,17 +151,28 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
+        $books = Category::find($id)->books;
         $listOrder=[];
         $tmp=Category::where('parent_id', $id)->count();
         if ($tmp>0) {
-            $listOrder= Category::where('parent_id', $id)->orderBy('parent_id', 'asc')->orderBy('order', 'asc')->select('id','category_name', 'parent_id')->get();
+            $listOrder= Category::where('parent_id', $id)
+                                ->orderBy('parent_id', 'asc')
+                                ->orderBy('order', 'asc')
+                                ->select('id','category_name', 'parent_id')
+                                ->get();
         }
         $category= Category::find($id);
         if ($category==null) {
             return 'Không tìm thấy danh mục';
         }else{
             $listOption=$this->getSelect($id);
-            return view('back-end.categories.option', ['category' => $category,'listOption'=> $listOption,'listOrder'=>$listOrder]);
+            return view('back-end.categories.option', 
+                    [
+                        'category' => $category,
+                        'listOption'=> $listOption,
+                        'listOrder'=>$listOrder,
+                        'books'=>$books
+                    ]);
         }
     }
 
@@ -224,7 +235,6 @@ class CategoryController extends Controller
     {
         if(count($request->order)){
             foreach ($request->order as $key => $value) {
-                // echo $value.'';
                 $t=$key+1;
                 $category = Category::find($value)->update(['order' => $t]);
                 
@@ -242,6 +252,25 @@ class CategoryController extends Controller
     public function getlist()
     {
         return Category::get();
+        
+    }
+
+     public static function getAllCategories($categories, $parent_id = 0,$arr=array())
+    {
+        foreach ($categories as $key => $item)
+        {
+            if ($parent_id!=0) {
+                $arr[]=$parent_id;
+            }
+            if ($item['parent_id'] == $parent_id)
+            {
+                $arr[]=$item->id;
+                unset($categories[$key]);
+                // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
+                CategoryController::getAllCategories($categories, $item['id'], $arr);
+            }
+        }
+        return array_unique($arr);
     }
 
 }

@@ -1,5 +1,5 @@
 
-    .item{
+    .owl-carousel-menu .item{
         height: 5rem;
         position: relative;
         text-align: center;
@@ -9,13 +9,13 @@
         border-radius: 5px;
         width: 90px;
     }
-    .item:hover{
+    .owl-carousel-menu .item:hover{
         background-color: #00b7f1 !important;
     }
-    .item:hover a{
+    .owl-carousel-menu .item:hover a{
         color: #fff;
     }
-    .item a{
+    .owl-carousel-menu .item a{
         margin-top: 10px;
         font-weight: bold;
         font-size: 15px;
@@ -97,3 +97,10 @@
     margin: 0 1em 1em 0;
     height: 50px;
   }
+ .images-book .item-image{
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  .item-image img{display: block;}
+
+  

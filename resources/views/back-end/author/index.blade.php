@@ -30,8 +30,8 @@
 		            <td>{{author.id}}</td>
 		            <td>{{author.author_name}}</td>
 		            <td>{{author.author_info}}</td>
-		            <td>{{author.author_image}}</td>
-		            <td> </td>
+		            <td><img src="{{author.author_image}}"></td>
+		            <td>{{author.total}}</td>
 
 		            <td>
 			            <a href="author/{{author.id}}/edit" class="waves-effect waves-light btn" style="width: 35px;padding: 0">

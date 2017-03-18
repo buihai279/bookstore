@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination']).constant('API','http://localhost/bookstore/public/');
+var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination','ngSanitize']).constant('API','http://localhost/bookstore/public/');
 function OtherController($scope) {}
 myApp.controller('OtherController', OtherController);
 myApp.controller('MyController',function($scope,$http,API){
@@ -7,7 +7,6 @@ myApp.controller('MyController',function($scope,$http,API){
     url: API + 'book/list'
   }).then(function successCallback(response) {
     $scope.books=response.data;
-    // console.log(1);
     });
   $scope.currentPage = 1;
   $scope.pageSize = 10;

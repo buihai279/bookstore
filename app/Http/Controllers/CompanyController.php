@@ -8,6 +8,8 @@ use Validator;
 
 use App\Company;
 
+use Illuminate\Support\Facades\DB;
+
 class CompanyController extends Controller
 {
     /**
@@ -81,8 +83,13 @@ class CompanyController extends Controller
      */
     public function edit($id)
     {
+        $books = Company::find($id)->books;
         $company=Company::find($id);
-        return view('back-end.company.edit',['company'=>$company]);
+        return view('back-end.company.edit',
+            [
+                'company'=>$company,
+                'books'=>$books
+            ]);
     }
 
     /**
@@ -134,6 +141,26 @@ class CompanyController extends Controller
 
     public function getlist()
     {
-        return Company::orderBy('company_name')->get();
+        // return Company::orderBy('company_name')->get();
+        return DB::select("
+                            SELECT c.id,c.company_name,c.company_info,c.company_image,  
+                                    count(b.company_id) as total 
+                            FROM companies as c
+                            LEFT OUTER JOIN books  as b
+                            ON c.id = b.company_id
+                            GROUP BY c.id,c.company_name,c.company_info,c.company_image
+                            ORDER BY total DESC
+
+                        ");
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public static function getlistCompany()
+    {
+        return Company::select('id','company_name','company_image')->distinct()->orderBy('company_name')->get();
     }
 }

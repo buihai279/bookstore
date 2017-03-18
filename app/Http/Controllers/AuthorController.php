@@ -8,6 +8,8 @@ use Validator;
 
 use App\Author;
 
+use Illuminate\Support\Facades\DB;
+
 class AuthorController extends Controller
 {
     /**
@@ -81,8 +83,13 @@ class AuthorController extends Controller
      */
     public function edit($id)
     {
+        $books = Author::find($id)->books;
         $author=Author::find($id);
-        return view('back-end.author.edit',['author'=>$author]);
+        return view('back-end.author.edit',
+            [
+                'author'=>$author,
+                'books'=>$books
+            ]);
     }
 
     /**
@@ -137,6 +144,12 @@ class AuthorController extends Controller
      */
     public function getlist()
     {
-        return Author::orderBy('author_name')->get();
+        return Author::getTopAuthor();
     }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
 }

@@ -1,7 +1,7 @@
 @extends('back-end.layouts.book-master')
 @section('book-content')
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-sanitize.js"></script>
  @verbatim 
-
     <div class="row">
         <div ng-controller="MyController" class="my-controller">
           <div class="row">
@@ -14,41 +14,34 @@
               <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
             </div>
           </div>
-              <table>
+              <table class="table-book striped responsive-table">
             <thead>
               <tr>
                   <th data-field="id">Id</th>
-                  <th data-field="name">Ảnh Book</th>
-                  <th data-field="image">link</th>
-                  <th data-field="image">status</th>
-                  <th data-field="total">order</th>
-                  <th data-field="total">created_at</th>
-                  <th data-field="total">created_at</th>
-                  <th data-field="total">created_at</th>
-                  <th data-field="total">created_at</th>
-                  <th data-field="total">created_at</th>
-                  <th data-field="total">created_at</th>
-                  <th data-field="total"></th>
+                  <th data-field="name">Tên sách</th>
+                  <th data-field="name">Tác giả</th>
+                  <th data-field="name">Ảnh Bìa</th>
+                  <th data-field="image">Xuất bản</th>
+                  <th data-field="image">Công ty phát hành</th>
+                  <th data-field="total">Danh mục</th>
               </tr>
             </thead>
-
             <tbody>
               <tr dir-paginate="book in books | filter:q | itemsPerPage: pageSize" current-page="currentPage">
                 <td>{{book.id}}</td>
-                <td>{{book.book_name}}</td>
-                <td>{{book.description}}</td>
-                <td>{{book.publish_date}}</td>
-                <td>{{book.author_id}}</td>
-                <td>{{book.company_id}}</td>
-                <td>{{book.category_id}}</td>
-                <td>{{book.publishing_house}}</td>
-                <td>{{book.translator}}</td>
-                <td>{{book.created_at}}</td>
-                <td>{{book.updated_at}}</td>
+                <td style="width:350px">{{book.book_name}}</td>
+                <td style="width:300px">{{book.author_name}}</td>
+                <td><img width="70px" src="http://localhost/bookstore/public/{{book.book_image}}"></td>
+                <td style="width:200px">{{book.publish_date | date:'MM-yyyy'}}</td>
+                <td style="width:300px">{{book.company_name}}</td>
+                <td style="width:300px">{{book.category_name}}</td>
 
                 <td>
                   <a href="book/{{book.id}}/edit" class="waves-effect waves-light btn" style="width: 35px;padding: 0">
                     <i class="material-icons">edit</i>
+                  </a>
+                  <a href="book/{{book.id}}" class="waves-effect waves-light btn blue lighten-4" style="width: 35px;padding: 0">
+                    <i class="material-icons">remove_red_eye</i>
                   </a>
               </td>
               </tr>
@@ -86,3 +79,4 @@
   <script src="{{ URL::asset('lib/dirPagination.js') }}"></script>
   <script src="{{ URL::asset('lib/controller/BookController.js') }}"></script>
 @stop
+{{-- <td ng-bind-html="book.description "></td> --}}

@@ -13,4 +13,16 @@ class Category extends Model
     protected $guarded =[];
 
     public $timestamps = false;
+    
+    public function books()
+    {
+        return $this->hasMany('App\Book');
+    }
+    public static function getCategoriesByParentID($parentID=0)
+    {
+        return Category::select('id','category_name')
+                        ->orderBy('order')
+                        ->where('parent_id', $parentID)
+                        ->get();
+    }
 }
