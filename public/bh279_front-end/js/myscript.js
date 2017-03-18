@@ -37,7 +37,7 @@ $('.show-menu').hover(function() {
     });
   })
 $(window).scroll(function() {
-   if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+   if($(window).scrollTop() + $(window).height() > $(document).height() - 300) {
        $('.show-menu').show();
    }
    if($(window).scrollTop() + $(window).height() < $(document).height() - 100) {

@@ -1,46 +1,13 @@
 <!-- slide -->
 <div class="swiper-container">
     <ul class="swiper-wrapper">
+    @foreach ($slides as $element)
         <li class="swiper-slide">
             <a href="https://tiki.vn" >
-               <img src="{{ URL::asset('bh279_front-end/images/slide1.png') }}">
+               <img src="{{ URL::asset($element->slide_image) }}">
             </a>
         </li>
-        <li class="swiper-slide">
-            <a href="#">
-                <img src="{{ URL::asset('bh279_front-end/images/slide1.png') }}">
-            </a>
-        </li>
-        <li class="swiper-slide">
-            <a href="#">
-                <img src="{{ URL::asset('bh279_front-end/images/slide1.png') }}">
-            </a>
-        </li>
-        <li class="swiper-slide">
-            <a href="#">
-                <img src="{{ URL::asset('bh279_front-end/images/slide1.png') }}">
-            </a>
-        </li>
-        <li class="swiper-slide">
-            <a href="#">
-                <img src="{{ URL::asset('bh279_front-end/images/slide1.png') }}">
-            </a>
-        </li>
-        <li class="swiper-slide">
-            <a href="#">
-                <img src="{{ URL::asset('bh279_front-end/images/slide1.png') }}">
-            </a>
-        </li>
-        <li class="swiper-slide">
-            <a href="#">
-                <img src="{{ URL::asset('bh279_front-end/images/slide1.png') }}">
-            </a>
-        </li>
-        <li class="swiper-slide">
-            <a href="#">
-                <img src="{{ URL::asset('bh279_front-end/images/slide1.png') }}">
-            </a>
-        </li>
+    @endforeach
     </ul>
     <!-- Add Pagination -->
     <div class="swiper-pagination"></div>

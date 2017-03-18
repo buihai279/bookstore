@@ -12,6 +12,8 @@ use App\Company;
 
 use App\Book;
 
+use App\Slide;
+
 use App\http\Controllers\CategoryController;
 
 class HomeController extends Controller
@@ -35,6 +37,7 @@ class HomeController extends Controller
     {
         $categories=Category::getCategoriesByParentID(0);
         $categoryAll=Category::get();
+        $slides=Slide::get();
         // $capanyAll=Company::get();
         foreach ($categories as $value) {
             $categoriesChild[$value->id]=Category::getCategoriesByParentID($value->id);
@@ -43,12 +46,13 @@ class HomeController extends Controller
             $companyChild[$value->id]=Company::getTopCompanyInCategories($listCate);
             $booksChild[$value->id]=Book::getAllBookByCategoryId($listCate);
         }
-        // dd($booksChild);
+        // dd($slides);
         return view('front-end.home',[
                         'categories'        =>$categories,
                         'categoriesChild'   =>$categoriesChild,
                         'companyChild'      =>$companyChild,
-                        'booksChild'         =>$booksChild,
+                        'booksChild'        =>$booksChild,
+                        'slides'            =>$slides,
                         'authorsChild'      =>$authorsChild
                     ]);
     }
