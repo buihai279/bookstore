@@ -16,6 +16,7 @@
     <script src="{{ URL::asset('bh279_front-end/js/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('bh279_front-end/js/materialize.min.js') }}"></script>
     <script src="{{ URL::asset('bh279_front-end/js/swiper.jquery.min.js') }}"></script>
+    <script src="{{ URL::asset('lib/jquery.number.min.js') }}"></script>
     <script src="{{ URL::asset('bh279_front-end/js/myscript.js') }}"></script>
 </head>
 <body >
@@ -26,7 +27,7 @@
                 <div class="nav-wrapper">
                     <div class="container">
                         <div class="row">
-                            <div class="col l2">
+                            <div class="col l1">
                               <a href="{{ route('homepage') }}" class="brand-logo">Logo</a>
                               <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                             </div>
@@ -39,45 +40,34 @@
                                     <div class="search-results"></div>
                                 </div>
                             </form>
-                            <div class="col l4">
-                                <ul class="right hide-on-med-and-down">
+                            <div class="col l5">
+                                <ul class="hide-on-med-and-down">
                                     @if (Auth::guest())
                                         <li><a href="{{ route('login') }}">Login</a></li>
                                         <li><a href="{{ route('register') }}">Register</a></li>
                                     @else
-                                    <li><a class="dropdown-button" href="#!" data-activates="dropdown1">{{ Auth::user()->name }}<i class="material-icons right">arrow_drop_down</i></a></li>
-                                    <!-- Dropdown Structure -->
-                                    <ul id="dropdown1" class="dropdown-content">
-                                         @if (Auth::user()->level==1||Auth::user()->level==2)
-                                            <li><a href="{{ route('dashboard') }}">Vào trang quản trị</a></li>
-                                        @endif
-                                        <li><a href="{{ route('changePassword') }}">Đổi mật khẩu</a></li>
-                                        <li>
-                                            <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
+                                    <li class="col s6">
+                                        <a class="dropdown-button" href="#!" data-activates="dropdown1">
+                                            @php
+                                                echo substr(Auth::user()->name, 0, 6);
+                                            @endphp...<i class="material-icons right">arrow_drop_down</i>
                                         </a>
-
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                {{ csrf_field() }}
-                                            </form>
-                                        </li>
-                                    </ul>
+                                    </li>
                                     @endif
+                                    <li id="header-cart " class="col s5">
+                                        <a data-reactroot="" rel="nofollow" href="{{ route('cart.index') }}" class="header-cart item">
+                                            Giỏ hàng<span class="cart-count">{{Cart::count()}}</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
-                      <ul class="side-nav" id="mobile-demo">
+                     {{--  <ul class="side-nav" id="mobile-demo">
                         <li><a href="sass.html">Sass</a></li>
                         <li><a href="badges.html">Components</a></li>
-                      </ul>
-
+                      </ul> --}}
                     </div> <!--end container-->
                 </div>
-                <a class="btn-floating btn-large halfway-fab waves-effect waves-light teal">
-                    <i class="material-icons">shopping_basket</i>
-                </a>
             </nav> <!-- end .nav-extand -->
         </div>
         <div class="container">
@@ -90,15 +80,46 @@
         </div>
         <!-- /container -->
     </header><!-- /header -->
+    <div class="breadcrumb-wrap" style="margin-bottom: 10px">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="/">Trang chủ</a>
+                </li>
+                <li><a href="/nha-sach-tiki">Nhà Sách Tiki</a>
+                </li>
+                <li><a href="/sach-truyen-tieng-viet/c316">Sách Tiếng Việt </a>
+                </li>
+                <li><a href="https://tiki.vn/nha-gi-kim-p378448.html">Nhà Giả Kim</a>
+                </li>
+            </ol>
+        </div>
+    </div>
     @show
     <main class="wrap">
         <div class="container">
-                @yield('content')
+            @yield('content')
         </div>
     </main>
     @section('footer')
         @include('front-end.layouts.footer')
     @show
     <div id="overlay-body" style="display: none;"></div>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        {{ csrf_field() }}
+    </form>
+    <!-- Dropdown Structure -->
+    <ul id="dropdown1" class="dropdown-content">
+         @if (!Auth::guest()&&(Auth::user()->level==1||Auth::user()->level==2))
+            <li><a href="{{ route('dashboard') }}">Vào trang quản trị</a></li>
+        @endif
+        <li><a href="{{ route('changePassword') }}">Đổi mật khẩu</a></li>
+        <li>
+            <a href="{{ route('logout') }}"
+            onclick="event.preventDefault();
+                     document.getElementById('logout-form').submit();">
+            Logout
+        </a>
+        </li>
+    </ul>
 </body>
 </html>

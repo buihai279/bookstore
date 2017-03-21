@@ -7,7 +7,7 @@
     else
       $disabled='';
     @endphp
-    <form class="col s12 l6"  method="POST" action="{{ route('updateUser',$user->id) }}">
+    <form class="col s12 l6"  method="POST" action="{{ route('user.update',$user->id) }}">
      {{ csrf_field() }}
       <div class="row">
           <div class="input-field col s12">

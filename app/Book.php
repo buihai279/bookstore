@@ -22,16 +22,37 @@ class Book extends Model
     }
     public static function getAllBookByCategoryId($categories=array())
     {
-        $strCate=implode(',', $categories);
-        return DB::select(" 
-                            SELECT b.id,b.price,b.cover_price,b.book_name,b.description,a.author_name,b.book_image,b.quality
-                            FROM books as b
-                            LEFT OUTER JOIN categories  as c
-                            ON b.category_id=c.id
-                            LEFT OUTER JOIN authors  as a
-                            ON b.author_id=a.id
-                            WHERE c.id IN ($strCate)
-                        ");
-
+        return  DB::table('books as b')
+                ->select('b.id','b.book_name','b.price','b.cover_price','a.author_name','b.book_image')
+                ->join('categories as c', 'b.category_id','=','c.id')
+                ->join('authors as a', 'b.author_id','=','a.id')
+                ->whereIn('c.id', $categories)
+                ->paginate(10);
+    }
+    public static function getBookByBookId($bookID=0)
+    {
+        return  Book::where('books.id','=',$bookID)
+                    ->select('books.id as bookId',
+                            'books.book_name',
+                            'books.book_image',
+                            'books.quality',
+                            'books.category_id',
+                            'books.price',
+                            'books.cover_price',
+                            'books.number_of_pages',
+                            'books.translator',
+                            'books.publish_date',
+                            'books.publishing_house',
+                            'books.images',
+                            'a.id as authorId',
+                            'a.author_name',
+                            'com.company_image',
+                            'com.company_name',
+                            'com.id as companyId'
+                    )
+                ->leftJoin('categories as c', 'books.category_id','=','c.id')
+                ->leftJoin('authors as a', 'books.author_id','=','a.id')
+                ->leftJoin('companies as com', 'books.company_id','=','com.id')
+                ->get()->first();
     }
 }

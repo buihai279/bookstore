@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use Validator;
 
+use Storage;
+
 use App\Company;
 
 use Illuminate\Support\Facades\DB;
@@ -45,7 +47,7 @@ class CompanyController extends Controller
         $validator = Validator::make($request->all(), [
             'txtNameCompany' => 'required|min:1',
             'txtCompanyInfo' => '',
-            'fileCompanyImg' => 'max:255',
+            'txtCompanyLogo' => 'max:255',
         ]);
         if ($validator->fails()) {
             return redirect()
@@ -59,7 +61,7 @@ class CompanyController extends Controller
 
         $company->company_info = $request->txtcompanyInfo;
 
-        $company->company_image = null;
+        $company->company_image = $request->txtCompanyLogo;
         $company->save();
         return redirect()->route('company.index');
     }
@@ -104,7 +106,7 @@ class CompanyController extends Controller
         $validator = Validator::make($request->all(), [
             'txtNameCompany' => 'required|min:1',
             'txtCompanyInfo' => '',
-            'fileCompanyImg' => 'max:255',
+            'txtCompanyLogo' => 'max:255',
         ]);
         if ($validator->fails()) {
             return redirect()
@@ -118,7 +120,7 @@ class CompanyController extends Controller
 
         $company->company_info = $request->txtCompanyInfo;
 
-        $company->company_image = null;
+        $company->company_image = $request->txtCompanyLogo;
         $company->save();
         return redirect()->route('company.index');
     }
@@ -163,4 +165,21 @@ class CompanyController extends Controller
     {
         return Company::select('id','company_name','company_image')->distinct()->orderBy('company_name')->get();
     }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function uploadCompanyLogo(Request $request){
+        $file = $request->file('file');
+        if(!empty($file)):
+            $info=pathinfo($file->getClientOriginalName());
+            $name='company-image/'.$info['filename'].time().'.'.$info['extension'];
+            Storage::put($name, file_get_contents($file));
+            $url = Storage::url('app/'.$name);
+        endif;
+        return \Response::json(array('success' => true,'file'=>$url));
+    }
+
 }

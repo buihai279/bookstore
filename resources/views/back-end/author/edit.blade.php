@@ -18,7 +18,7 @@
         </div>
         <div class="input-field col s12">
 	          <i class="material-icons prefix">mode_edit</i>
-	          <textarea id="icon_prefix2" class="materialize-textarea" name="txtAuthorInfo">{{$author->author_info}}</textarea>
+	          <textarea id="icon_prefix2" class="materialize-textarea" placeholder="tdsa" name="txtAuthorInfo">{{$author->author_info}}</textarea>
 	          <label for="icon_prefix2">Thông tin tác giả</label>
             @if ($errors->has('txtAuthorInfo'))
                 <span class="red-text">
@@ -29,15 +29,22 @@
           
       </div>
       <div class="row">
+        <div class="col s12">
+          <img src="" id="author_avatar" style="max-width: 200px" alt="">
+        </div>
 	      <div class="file-field input-field s12">
-		      <div class="btn">
+		      <div class="btn" id="btnUploadAvatarAuthor">
 		        <span>Chọn Ảnh</span>
-		        <input type="file" name="fileAuthorImg">
 		      </div>
 		      <div class="file-path-wrapper">
-		        <input class="file-path validate" value="{{$author->author_img}}" type="text">
+		        <input class="file-path validate" name="txtAuthorImage" id="valueAvatar" value="{{$author->author_img}}" type="text">
 		      </div>
 	    	</div>
+        @if ($errors->has('txtAuthorImage'))
+          <span class="red-text">
+              <strong>{{ $errors->first('txtAuthorImage') }}</strong><br>
+          </span>
+        @endif
     	</div>
      <div class="row">
         <div class="input-field col s12">
@@ -87,4 +94,33 @@
       <a href="" class="modal-action modal-close waves-effect waves-light btn-flat ">Đóng</a>
       <a href="" class="btnDelete modal-action modal-close waves-effect waves-light btn-flat ">Xóa</a>
     </div>
+<form action="{{ route('uploadAvatarAuthor') }}" method="POST" id="uploadAvatarAuthor" style="display: none" enctype="multipart/form-data">
+    {{ csrf_field() }}
+    <input type="file" id="inputUploadAvatar" hidden name="file" ><br />
+    <input type="submit" id='btnSubmitAvatar' hidden>
+</form>
+
+<script>
+  var formAvatar = document.getElementById('uploadAvatarAuthor');
+  var requestAvatar = new XMLHttpRequest();
+
+  formAvatar.addEventListener('submit', function(e){
+      e.preventDefault();
+      var formdata = new FormData(formAvatar);
+      requestAvatar.open('post', '{{route('uploadAvatarAuthor') }}');
+      requestAvatar.addEventListener("load", transferCompleteAvatar);
+      requestAvatar.send(formdata);
+  });
+  function transferCompleteAvatar(data){
+      response = JSON.parse(data.currentTarget.response);
+      if(response.success){
+            $('#messageAvatar').text('Successfully Uploaded Files!');
+            var url=response.file;
+            // var node="<img src='"+url+"' height='150px'>";
+            $("#valueAvatar").val(url);
+            $("#author_avatar").attr('src','{{URL::to('/')}}'+url);
+      }
+  }
+
+</script>
 @stop

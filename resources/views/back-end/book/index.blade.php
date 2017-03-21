@@ -31,7 +31,7 @@
                 <td>{{book.id}}</td>
                 <td style="width:350px">{{book.book_name}}</td>
                 <td style="width:300px">{{book.author_name}}</td>
-                <td><img width="70px" src="http://localhost/bookstore/public/{{book.book_image}}"></td>
+                <td><img width="70px" src="http://localhost/bookstore{{book.book_image}}"></td>
                 <td style="width:200px">{{book.publish_date | date:'MM-yyyy'}}</td>
                 <td style="width:300px">{{book.company_name}}</td>
                 <td style="width:300px">{{book.category_name}}</td>

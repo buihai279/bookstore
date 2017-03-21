@@ -1,7 +1,7 @@
 @extends('back-end.layouts.category-master')
 @section('user-content')
 
-    <form class="col s12 m4" method="POST" action="{{ route('updateCategory',$category->id) }}">
+    <form class="col s12 m4" method="POST" action="{{ route('category.update',$category->id) }}">
       {{ csrf_field() }}
       {{ method_field('PUT') }}
       <div class="row">
@@ -43,7 +43,7 @@
       @endif
     </div>
     <div class="row">
-      <form class="col s8 fmtDelete" method="POST" action="{{ route('deleteCategory',$category->id) }}">
+      <form class="col s8 fmtDelete" method="POST" action="{{ route('category.destroy',$category->id) }}">
         {{ csrf_field() }}
         {{ method_field('DELETE') }}
          <button class="btn waves-effect waves-light red" data-target="modalConfirmDelete"  type="submit" name="btn_delete" value="delete" >Xóa

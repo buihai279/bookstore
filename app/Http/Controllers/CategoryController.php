@@ -36,7 +36,7 @@ class CategoryController extends Controller
         ]);
         if ($validator->fails()) {
             return redirect()
-                        ->route('indexCategory')
+                        ->route('category.index')
                         ->withErrors($validator)
                         ->withInput();
         }
@@ -97,7 +97,7 @@ class CategoryController extends Controller
                         $tableStr.= '<td>';
                             $tableStr.= $char . $item->category_name;
                         $tableStr.= '</td>';
-                        $tableStr.= "<td><a href='".route('editCategory',$item->id)."'style='width: 35px;padding:0' class='waves-effect waves-light btn'><i class='material-icons'>edit</i></a><td>";
+                        $tableStr.= "<td><a href='".route('category.edit',$item->id)."'style='width: 35px;padding:0' class='waves-effect waves-light btn'><i class='material-icons'>edit</i></a><td>";
                     $tableStr.= '</tr>';
                  
                 // Xóa chuyên mục đã lặp
@@ -206,7 +206,7 @@ class CategoryController extends Controller
                 $category->parent_id = $parent_id;
             }
             $category->save();
-            return redirect()->route('indexCategory');
+            return redirect()->route('category.index');
         }else
             return 'Có lỗi xảy ra';
     }
@@ -222,7 +222,7 @@ class CategoryController extends Controller
         if (Category::find($id)!=null) {
             Category::where('parent_id', $id)->delete();
             Category::destroy($id);
-            return redirect()->route('indexCategory');
+            return redirect()->route('category.index');
         }
     }
     /**
@@ -239,7 +239,7 @@ class CategoryController extends Controller
                 $category = Category::find($value)->update(['order' => $t]);
                 
             }
-            return redirect()->route('indexCategory');
+            return redirect()->route('category.index');
         }
         echo "Có lỗi xảy ra";
     }
@@ -255,19 +255,18 @@ class CategoryController extends Controller
         
     }
 
-     public static function getAllCategories($categories, $parent_id = 0,$arr=array())
+     public static function getAllIdCategories($categories, $parent_id = 0,$arr=array())
     {
         foreach ($categories as $key => $item)
         {
             if ($parent_id!=0) {
-                $arr[]=$parent_id;
+                array_push($arr, $parent_id);
             }
             if ($item['parent_id'] == $parent_id)
             {
-                $arr[]=$item->id;
+                array_push($arr,$item['id']);
                 unset($categories[$key]);
-                // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
-                CategoryController::getAllCategories($categories, $item['id'], $arr);
+                CategoryController::getAllIdCategories($categories, $item['id'], $arr);
             }
         }
         return array_unique($arr);

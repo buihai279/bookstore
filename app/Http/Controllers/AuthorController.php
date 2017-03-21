@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use Validator;
 
+use Storage;
+
 use App\Author;
 
 use Illuminate\Support\Facades\DB;
@@ -44,7 +46,7 @@ class AuthorController extends Controller
         $validator = Validator::make($request->all(), [
             'txtNameAuthor' => 'required|min:1',
             'txtAuthorInfo' => '',
-            'fileAuthorImg' => 'max:255',
+            'txtAuthorImage' => 'max:255',
         ]);
         if ($validator->fails()) {
             return redirect()
@@ -58,7 +60,7 @@ class AuthorController extends Controller
 
         $author->author_info = $request->txtAuthorInfo;
 
-        $author->author_image = null;
+        $author->author_image = $request->txtAuthorImage;
         $author->save();
         return redirect()->route('author.index');
 
@@ -104,7 +106,7 @@ class AuthorController extends Controller
         $validator = Validator::make($request->all(), [
             'txtNameAuthor' => 'required|min:1',
             'txtAuthorInfo' => '',
-            'fileAuthorImg' => 'max:255',
+            'txtAuthorImage' => 'max:255',
         ]);
         if ($validator->fails()) {
             return redirect()
@@ -115,7 +117,7 @@ class AuthorController extends Controller
         $author = Author::find($id);
         $author->author_name = $request->txtNameAuthor;
         $author->author_info = $request->txtAuthorInfo;
-        $author->author_image = $request->fileAuthorImg;
+        $author->author_image = $request->txtAuthorImage;
         $author->save();
         return redirect()->route('author.index');
     }
@@ -152,4 +154,20 @@ class AuthorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+     public function uploadAvatarAuthor(Request $request){
+        $file = $request->file('file');
+        if(!empty($file)):
+            $info=pathinfo($file->getClientOriginalName());
+            $name='author-image/'.$info['filename'].time().'.'.$info['extension'];
+            Storage::put($name, file_get_contents($file));
+            $url = Storage::url('app/'.$name);
+        endif;
+        return \Response::json(array('success' => true,'file'=>$url));
+    }
 }

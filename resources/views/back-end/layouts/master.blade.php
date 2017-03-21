@@ -17,6 +17,9 @@
 <script src="{{ URL::asset('bh279_back-end/owl-carousel/owl.carousel.min.js') }}"></script>
 <script src="{{ URL::asset('lib/angular.min.js') }}"></script>
 <script src="{{ URL::asset('lib/app.js') }}"></script>
+
+  <script src="//cloud.tinymce.com/stable/tinymce.min.js"></script>
+  <script>tinymce.init({ selector:'textarea' });</script>
 </head>
 <body >
     @section('header')
@@ -61,16 +64,19 @@
                 <a href="{{ route('book.index') }}"><i class="material-icons">library_books</i><span>Sách</span></a>
             </div>
             <div class="item">
-                <a href="{{ route('manager-user') }}"> <i class="material-icons">supervisor_account</i><span>Tài khoản</span></a>
+                <a href="{{ route('user.index') }}"> <i class="material-icons">supervisor_account</i><span>Tài khoản</span></a>
             </div>
             <div class="item">
-                <a href="{{ route('indexCategory') }}"><i class="material-icons">format_list_numbered</i> <span>Danh mục</span></a>
+                <a href="{{ route('category.index') }}"><i class="material-icons">format_list_numbered</i> <span>Danh mục</span></a>
             </div>
             <div class="item">
                 <a href="{{ route('author.index') }}"> <i class="material-icons">perm_contact_calendar</i><span>Tác giả</span></a>
             </div>
             <div class="item">
                 <a href="{{ route('company.index') }}"> <i class="material-icons">business</i> <span>Nhà cung cấp</span></a>
+            </div>
+            <div class="item">
+                <a href="{{ route('comment.index') }}"><i class="material-icons">comment</i> <span>Comment</span></a>
             </div>
             <div class="item">
                 <a href="/"><i class="material-icons">format_list_numbered</i> <span>Đơn hàng</span></a>

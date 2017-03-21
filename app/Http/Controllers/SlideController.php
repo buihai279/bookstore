@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Validator;
+use Storage;
 
 use App\Slide;
 
@@ -43,7 +44,7 @@ class SlideController extends Controller
         // dd($request->cb_status);
         $validator = Validator::make($request->all(), [
             'txtLinkSlide' => '',
-            'fileNameImg' => 'required',
+            'txtImageSlide' => 'required',
             'cb_status' => '',
         ]);
         if ($validator->fails()) {
@@ -57,7 +58,7 @@ class SlideController extends Controller
 
         $slide->link = $request->txtLinkSlide;
 
-        $slide->slide_image = $request->fileNameImg;
+        $slide->slide_image = $request->txtImageSlide;
 
         $slide->status = $request->cb_status;
         $count=Slide::count();
@@ -105,7 +106,7 @@ class SlideController extends Controller
         $validator = Validator::make($request->all(), [
             // 'txtName' => 'required|min:1',
             // 'txtslide' => '',
-            // 'fileSlideImg' => 'max:255',
+            'txtImageSlide' => 'max:255',
         ]);
         if ($validator->fails()) {
             return redirect()
@@ -116,7 +117,7 @@ class SlideController extends Controller
         $slide = Slide::find($id);
         $slide->link = $request->txtLinkSlide;
         $slide->status = $request->cb_status;
-        $slide->slide_image = $request->fileNameImg;
+        $slide->slide_image = $request->txtImageSlide;
         $slide->save();
         return redirect()->route('slide.index');
     }
@@ -160,5 +161,21 @@ class SlideController extends Controller
             $slide->save();
         }
         return redirect()->route('slide.index');
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+     public function uploadSlideImage(Request $request){
+        $file = $request->file('file');
+        if(!empty($file)):
+            $info=pathinfo($file->getClientOriginalName());
+            $name='slide-image/'.$info['filename'].time().'.'.$info['extension'];
+            Storage::put($name, file_get_contents($file));
+            $url = Storage::url('app/'.$name);
+        endif;
+        return \Response::json(array('success' => true,'file'=>$url));
     }
 }

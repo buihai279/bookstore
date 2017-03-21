@@ -1,0 +1,114 @@
+
+    .owl-carousel-menu .item{
+        height: 5rem;
+        position: relative;
+        text-align: center;
+        padding: 4px;
+        display: block;
+        float: left;
+        border-radius: 5px;
+        width: 90px;
+    }
+    .owl-carousel-menu .item:hover{
+        background-color: #00b7f1 !important;
+    }
+    .owl-carousel-menu .item:hover a{
+        color: #fff;
+    }
+    .owl-carousel-menu .item a{
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 15px;
+    }
+    .item .material-icons{
+        display: block;
+    }
+    .owl-carousel:hover{
+        cursor:move;
+    }
+    .menu .item a {
+    border-radius: 4px;
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+.menu .item a:hover {
+    color: #fff;
+    background-color: #337ab7;
+}
+.menu {
+    border-right: 1px solid #e0e0e0;
+    height: 700px;
+}
+.row-delete{text-decoration: line-through;}
+.list-categories tbody tr td{padding: 5px !important}
+
+.sortable {
+    border: 1px solid #eee;
+    min-height: 20px;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0 0 0;
+    float: left;
+    margin-right: 10px;
+  }
+  .sortable li {
+    margin: 0 5px 5px 5px;
+    padding: 5px;
+    font-size: 1.2em;
+  }
+  .ui-state-highlight{
+    background-color: #f3e5f5 ;
+  }
+  .ui-state-default{
+    background-color: #ef5350 ;
+  }
+  .state-default{
+    background-color: #039be5  ;
+  }
+  .wrapSortable ul{
+    background-color: #f1f8e9 ;
+  }
+
+  .sortablecolumn {
+    float: left;
+    padding-bottom: 100px;
+  }
+  .portlet {
+    margin: 0 1em 1em 0;
+    padding: 0.3em;
+  }
+  .portlet-header {
+    padding: 0.2em 0.3em;
+    margin-bottom: 0.5em;
+    position: relative;
+  }
+  .portlet-toggle {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-top: -8px;
+  }
+  .portlet-content {
+    padding: 0.4em;
+  }
+  .portlet-placeholder {
+    border: 1px dotted black;
+    margin: 0 1em 1em 0;
+    height: 50px;
+  }
+ .images-book .item-image{
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  .item-image img{display: block;}
+
+  
+#images-book img{
+    max-width: 250px;
+    border:1px solid #f3f3f3;
+    margin-right: 10px;
+}
+#images-book .item-image{
+    display: inline-block;
+}

@@ -29,8 +29,10 @@
 		          <tr dir-paginate="author in authors | filter:q | itemsPerPage: pageSize" current-page="currentPage">
 		            <td>{{author.id}}</td>
 		            <td>{{author.author_name}}</td>
-		            <td>{{author.author_info}}</td>
-		            <td><img src="{{author.author_image}}"></td>
+		            <td> {{author.author_info}}</td>
+		            <td>
+                  <img ng-if="author.author_image" width="70"  class="circle responsive-img" ng-src="http://localhost/bookstore{{author.author_image}}">
+                </td>
 		            <td>{{author.total}}</td>
 
 		            <td>

@@ -30,15 +30,21 @@
       </div>
       <div class="row">
 	      <div class="file-field input-field s12">
-		      <div class="btn">
+          <img src="{{$company->company_img}}" id="companyLogo" style="max-width: 200px" alt="">
+		      <div class="btn" id="btnUploadLogoCompany">
 		        <span>Chọn Ảnh</span>
-		        <input type="file" name="fileCompanyImg">
 		      </div>
 		      <div class="file-path-wrapper">
-		        <input class="file-path validate" value="{{$company->company_img}}" type="text">
+		        <input class="file-path validate" id="valueLogo"  name="txtCompanyLogo" value="{{$company->company_img}}" type="text">
 		      </div>
 	    	</div>
+        @if ($errors->has('txtCompanyLogo'))
+          <span class="red-text">
+              <strong>{{ $errors->first('txtCompanyLogo') }}</strong><br>
+          </span>
+        @endif
     	</div>
+
       <div class="row">
         <div class="input-field col s3">
            <button class="btn waves-effect waves-light" type="submit"  value="edit" name="btn_edit">Sửa
@@ -82,4 +88,33 @@
       <a href="" class="modal-action modal-close waves-effect waves-light btn-flat ">Đóng</a>
       <a href="" class="btnDelete modal-action modal-close waves-effect waves-light btn-flat ">Xóa</a>
     </div>
+<form action="{{ route('uploadCompanyLogo') }}" method="POST" id="uploadCompanyLogo" style="display: none" enctype="multipart/form-data">
+    {{ csrf_field() }}
+    <input type="file" id="inputUploadAvatar" hidden name="file" ><br />
+    <input type="submit" id='btnSubmitAvatar' hidden>
+</form>
+
+<script>
+  var formAvatar = document.getElementById('uploadCompanyLogo');
+  var requestAvatar = new XMLHttpRequest();
+
+  formAvatar.addEventListener('submit', function(e){
+      e.preventDefault();
+      var formdata = new FormData(formAvatar);
+      requestAvatar.open('post', '{{route('uploadCompanyLogo') }}');
+      requestAvatar.addEventListener("load", transferCompleteAvatar);
+      requestAvatar.send(formdata);
+  });
+  function transferCompleteAvatar(data){
+      response = JSON.parse(data.currentTarget.response);
+      if(response.success){
+            $('#messageAvatar').text('Successfully Uploaded Files!');
+            var url=response.file;
+            // var node="<img src='"+url+"' height='150px'>";
+            $("#valueLogo").val(url);
+            $("#companyLogo").attr('src','{{URL::to('/')}}'+url);
+      }
+  }
+
+</script>
 @stop

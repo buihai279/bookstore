@@ -1,8 +1,5 @@
-
 @extends('back-end.layouts.book-master')
 @section('book-content')
-<script src="{{ url('lib/ckeditor/ckeditor.js') }}"></script>
-<script src="{{ url('lib/ckfinder/ckfinder.js') }}"></script>
 <div class="row"> 
   <form class="col s12 l8" method="POST" action="{{ route('book.update',$book->id) }}">
     {{ csrf_field() }}
@@ -34,21 +31,20 @@
           <label for="author">Tác giả</label>
         </div>
     </div>
+
     <div class="row"> 
-        <div class="col s12">
-          <label for="images">Ảnh bìa</label>
-        </div>
       <div class="input-field col s12">
-       <img class="materialboxed" width="250px" id="book_image" src="{{ asset($book->book_image) }}">
+       <img class="materialboxed" width="300" id="book_image" src="{{ asset($book->book_image) }}">
        </div>
-      <div class="input-field col s3">
-         <a class="btn waves-effect waves-light" onclick="openPopup()">Upload
-            <i class="material-icons right">send</i>
-          </a>
-      </div>
-      <div class="input-field col s9">
-            <input class="file-path validate" value="{{asset($book->book_image)}}" id="url" name="txtBook_image" type="text">
-      </div>
+         <div class="input-field input-field">
+          <div class="btn" id="btnUploadAvatar">
+            <span>Ảnh</span>
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate " value="{{$book->book_image}}" hidden id="valueAvatar" name="txtAvatarBook" type="text">
+          </div>
+          <div id="messageAvatar"></div>
+        </div>
     </div>
     <div class="row"> 
         <div class="input-field col s12">
@@ -121,22 +117,23 @@
     <div class="row"> 
       <div class="col s12">
         <label for="images">Một số hình ảnh đọc thử</label>
+        <div class="message"></div>
       </div>
       <div class="input-field col s3" style="clear: both;">
-         <a class="btn waves-effect waves-light" onclick="openPopupImages()">Upload
+         <a class="btn waves-effect waves-light" id="btnUploadImages">Upload
             <i class="material-icons right">send</i>
           </a>
       </div>
-      <div class=" col s12">
-         <div class="images-book" style="height: 300px">
+      <div class="col s12">
+         <div id="images-book">
          @php
            $arrImg=json_decode($book->images);
          @endphp
          @if (is_array($arrImg)&&$arrImg!=null)
          @foreach($arrImg as $key => $value)
            <div class='item-image' id='item-image-{{$key}}'>
-             <img src='{{ asset($value) }}' height='150px'>
-               <input type='text' hidden='hidden' value='{{ asset($value) }}' name='txtImages[]'>
+             <img src='{{ url($value) }}' height='150px'>
+               <input type='text' hidden='hidden' value='{{ $value }}' name='txtImages[]'>
                <a class='waves-effect waves-light btn red' onclick='deleteImg({{$key}})'>
                 <i class='material-icons'>delete</i>
                 </a>
@@ -177,27 +174,64 @@ $(function() {
 });
 </script>
 <script type='text/javascript'>
-  
      $('.materialboxed').materialbox();
-var editor = CKEDITOR.replace( 'edit_description',
-{
-    language:'vi',
-    height: 300,
-    filebrowserBrowseUrl: '../../lib/ckfinder/ckfinder.html',
-    filebrowserImageBrowseUrl: '../../lib/ckfinder/ckfinder.html?type=Images',
-    filebrowserUploadUrl: '../../lib/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-    filebrowserImageUploadUrl: '../../lib/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-} );
-CKFinder.setupCKEditor( editor, {
-    skin: 'jquery-mobile',
-    swatch: 'b',
-    onInit: function( finder ) {
-        finder.on( 'files:choose', function( evt ) {
-            var file = evt.data.files.first();
-            console.log( 'Selected: ' + file.get( 'name' ) );
-        } );
-    }
-} );
+</script>
+
+<form action="{{ route('uploadAvatarBook') }}" method="POST" id="uploadAvatarBook" style="display: none" enctype="multipart/form-data">
+    {{ csrf_field() }}
+    <input type="file" id="inputUploadAvatar" hidden name="file" ><br />
+    <input type="submit" id='btnSubmitAvatar' hidden>
+</form>
+
+<form action="{{ route('uploadImagesBook') }}" method="POST" id="uploadImagesBook" style="display: none" enctype="multipart/form-data">
+    {{ csrf_field() }}
+    <input type="file" id="inputUploadImages" hidden name="file[]" multiple><br />
+    <input type="submit" id='btnSubmitImages' hidden>
+</form>
+
+<script>
+  var formAvatar = document.getElementById('uploadAvatarBook');
+  var requestAvatar = new XMLHttpRequest();
+
+  formAvatar.addEventListener('submit', function(e){
+      e.preventDefault();
+      var formdata = new FormData(formAvatar);
+      requestAvatar.open('post', '{{route('uploadAvatarBook') }}');
+      requestAvatar.addEventListener("load", transferCompleteAvatar);
+      requestAvatar.send(formdata);
+  });
+  function transferCompleteAvatar(data){
+      response = JSON.parse(data.currentTarget.response);
+      if(response.success){
+            $('#messageAvatar').text('Successfully Uploaded Files!');
+            var url=response.file;
+            // var node="<img src='"+url+"' height='150px'>";
+            $("#valueAvatar").val(url);
+            $("#book_image").attr('src','{{URL::to('/')}}'+url);
+      }
+  }
+
+  var formImages = document.getElementById('uploadImagesBook');
+  var requestImages = new XMLHttpRequest();
+  formImages.addEventListener('submit', function(e){
+      e.preventDefault();
+      var formdata = new FormData(formImages);
+      requestImages.open('post', '{{route('uploadImagesBook') }}');
+      requestImages.addEventListener("load", transferCompleteImages);
+      requestImages.send(formdata);
+  });
+  function transferCompleteImages(data){
+      response = JSON.parse(data.currentTarget.response);
+      if(response.success){
+          $('message').text("Successfully Uploaded Files!");
+          for (var i = response.files.length - 1; i >= 0; i--) {
+            var x = Math.floor((Math.random() * 999888999) + 1);
+            var url=response.files[i];
+            var node="<div class='item-image' id='item-image-"+x+"'><img src='"+'{{URL::to('/')}}'+url+"' height='150px'><input type='text' hidden='hidden' value='"+url+"' name='txtImages[]'><a class='waves-effect waves-light btn red' onclick='deleteImg("+x+")'><i class='material-icons'>delete</i></a></div>";
+            $("#images-book").append(node);
+          }
+      }
+  }
 </script>
 @stop
 <form id="form-destroy" action="{{ route('book.destroy',$book->id) }}" method="POST" style="display: none;">

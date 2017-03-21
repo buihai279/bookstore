@@ -4,7 +4,7 @@
 
 		  <ul class="nav nav-pills nav-stacked">
 		    <li role="presentation" class="active">
-		        <a href="{{ route('indexUser') }}" id="sub_studyresults">
+		        <a href="{{ route('user.index') }}" id="sub_studyresults">
 		            <span class="linkwrap">Danh sách người dùng</span>
 		        </a>
 		    </li>

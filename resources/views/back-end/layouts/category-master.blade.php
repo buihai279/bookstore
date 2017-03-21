@@ -11,17 +11,17 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('indexUser') }}" id="sub_studyresults">
+                    <a href="{{ route('category.index') }}" id="sub_studyresults">
                         <span class="linkwrap">Danh mục sách</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('indexUser') }}" id="sub_studyresults">
+                    <a href="{{ route('category.index') }}" id="sub_studyresults">
                         <span class="linkwrap">Danh mục sách</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('indexUser') }}" id="sub_studyresults">
+                    <a href="{{ route('category.index') }}" id="sub_studyresults">
                         <span class="linkwrap">Danh mục sách</span>
                     </a>
                 </li>

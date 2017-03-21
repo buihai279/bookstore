@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Validator;
 
+use Storage;
 use App\Book;
 use App\Author;
 use App\Category;
@@ -54,7 +55,7 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+        // dd($request->file('fileBookImage'));
         $validator = Validator::make($request->all(), [
             // "txtBook_name" => null
             //   "txtAuthor" => null
@@ -80,10 +81,9 @@ class BookController extends Controller
         $txtImages = array();
         if ($request->txtImages!=null) {
             foreach ($request->txtImages as  $value) {
-                $txtImages[]=str_replace(url('/'), '',  $value);
+                $txtImages[]=$value;
             }
         }
-        $txtBook_image=str_replace(url('/'), '',$request->txtBook_image);
         $book = new Book;
         $book->book_name = $request->txtBook_name;
         $book->description = $request->txtDescription;
@@ -97,7 +97,7 @@ class BookController extends Controller
         $book->quality = $request->txtQuality;
         $book->price = $request->txtPrice;
         $book->cover_price = $request->txtCover_price;
-        $book->book_image = $txtBook_image;
+        $book->book_image = $request->txtAvatarBook;
         $book->images = json_encode($txtImages);
         $book->save();
         return redirect()->route('book.index');
@@ -170,10 +170,9 @@ class BookController extends Controller
         $txtImages = array();
         if ($request->txtImages!=null) {
             foreach ($request->txtImages as  $value) {
-                $txtImages[]=str_replace(url('/'), '',  $value);
+                $txtImages[]=$value;
             }
         }
-        $txtBook_image=str_replace(url('/'), '',$request->txtBook_image);
         $book = Book::find($id);
         $book->book_name = $request->txtBook_name;
         $book->description = $request->txtDescription;
@@ -187,7 +186,7 @@ class BookController extends Controller
         $book->quality = $request->txtQuality;
         $book->price = $request->txtPrice;
         $book->cover_price = $request->txtCover_price;
-        $book->book_image = $txtBook_image;
+        $book->book_image = $request->txtAvatarBook;
         $book->images = json_encode($txtImages);
         $book->save();
         return redirect()->route('book.index');
@@ -242,5 +241,39 @@ class BookController extends Controller
     public static function getAuthor()
     {
         return Author::getlistAuthor();
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+     public function uploadImagesBook(Request $request){
+        $files = $request->file('file');
+        if(!empty($files)):
+            foreach($files as $file):
+                $info=pathinfo($file->getClientOriginalName());
+                $name='book-image/'.$info['filename'].time().'.'.$info['extension'];
+                Storage::put($name, file_get_contents($file));
+                $url[] = Storage::url('app/'.$name);
+            endforeach;
+        endif;
+        return \Response::json(array('success' => true,'files'=>$url));
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+     public function uploadAvatarBook(Request $request){
+        $file = $request->file('file');
+        if(!empty($file)):
+            $info=pathinfo($file->getClientOriginalName());
+            $name='book-image/'.$info['filename'].time().'.'.$info['extension'];
+            Storage::put($name, file_get_contents($file));
+            $url = Storage::url('app/'.$name);
+        endif;
+        return \Response::json(array('success' => true,'file'=>$url));
     }
 }

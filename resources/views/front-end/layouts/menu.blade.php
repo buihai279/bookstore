@@ -3,7 +3,7 @@
     <li><a href="#">Sách bán chạy trong tháng</a></li>
     @foreach ($categories as $key => $value)
         <li>
-            <a href="#" style="line-height: 40px;height: 40px">{{$value->category_name}} <i class="material-icons " style="vertical-align: middle;">keyboard_arrow_right</i></a>
+            <a href="{{ route('viewCategory',$value->id) }}" style="line-height: 40px;height: 40px">{{$value->category_name}} <i class="material-icons " style="vertical-align: middle;">keyboard_arrow_right</i></a>
             <div class="nav-sub">
                 <ul>
                     <li>
@@ -12,7 +12,7 @@
                             <a href="#bestsellers/sach-truyen-tieng-viet/c316">Sách bán chạy</a>
                             <a href="#sach-truyen-tieng-viet/c316?order=newest">Sách mới</a>
                             @foreach ($categoriesChild[$value->id] as $keyChild => $elementChild)
-                                <a href="#sach-truyen-tieng-viet/c316?order=newest">{{$elementChild->category_name}}</a>
+                                <a href="{{ route('viewCategory',$elementChild->id) }}">{{$elementChild->category_name}}</a>
                                 @if ($keyChild==5) 
                                 @break
                                 @endif

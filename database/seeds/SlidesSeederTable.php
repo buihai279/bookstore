@@ -15,7 +15,7 @@ class SlidesSeederTable extends Seeder
          DB::table('slides')->insert(
                 [
                     [
-                        'slide_image' => 'hinh-anh/anh-bia/you-can-win_1_1_1.jpg',
+                        'slide_image' => '/storage/app/hinh-anh/anh-bia/you-can-win_1_1_1.jpg',
                         'link' => '#',
                         'order' => 1,
                         'status' => 1,

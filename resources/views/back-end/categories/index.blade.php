@@ -5,14 +5,14 @@
         <li>
           <div class="collapsible-header">
             <i class="material-icons">filter_drama</i>Thêm danh mục mới
-                  @if ($errors->has('txtNameCategory'))
-                      <span class="red-text">
-                          <strong>{{ $errors->first('txtNameCategory') }}</strong><br>
-                      </span>
-                  @endif
+            @if ($errors->has('txtNameCategory'))
+                <span class="red-text">
+                    <strong>{{ $errors->first('txtNameCategory') }}</strong><br>
+                </span>
+            @endif
           </div>
           <div class="collapsible-body">
-              <form class="" method="POST" action="{{ route('storeCategory') }}">
+              <form class="" method="POST" action="{{ route('category.store') }}">
               {{ csrf_field() }}
                 <div class="input-field">
                   <input placeholder="Placeholder" name="txtNameCategory" id="category_name" type="text" class="validate">

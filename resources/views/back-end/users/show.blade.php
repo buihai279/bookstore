@@ -15,7 +15,7 @@
       <tr ng-repeat="user in users"  ng-style="user.deleted && {'text-decoration': 'line-through'}">
       @verbatim
         <td>
-          <a href="sua-nguoi-dung/{{user.id}}" class="waves-effect waves-light btn" style="width: 35px;padding: 0"  ng-if="user.deleted==0">
+          <a href="user/{{user.id}}/edit" class="waves-effect waves-light btn" style="width: 35px;padding: 0"  ng-if="user.deleted==0">
             <i class="material-icons">edit</i>
           </a>
         </td>
