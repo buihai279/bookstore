@@ -119,4 +119,26 @@ class HomeController extends Controller
                         'comments'              =>$comments,
                     ]);
     }
+    public function viewAuthor($bookId=0)
+    {   
+        $book= Book::getBookByBookId($bookId);
+        $comments= Comment::getCommentByBookId($bookId);
+        $dt     = Carbon::now();
+        Carbon::setLocale('vi');
+        // var_dump()($comments);
+        foreach ($comments as $comment) {
+            $comment->strTime=$dt->diffForHumans($comment->updated_at);
+        }
+        if ($book==null)
+            return;
+        return view('front-end.book',[
+                        'categories'            =>$this->categories,
+                        'categoriesChild'       =>$this->categoriesChild,
+                        'companyChild'          =>$this->companyChild,
+                        'authorsChild'          =>$this->authorsChild,
+                        'book'                  =>$book,
+                        'comments'              =>$comments,
+                    ]);
+    }
+    
 }

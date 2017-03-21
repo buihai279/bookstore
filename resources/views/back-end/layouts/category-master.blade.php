@@ -1,7 +1,6 @@
 @extends('back-end.layouts.master')
 @section('left-sidebar')
         <div class="col l2  m2  s3 menu">
-
             <script src="{{ URL::asset('bh279_back-end/js/jquery-ui.min.js') }}"></script>
             <link rel="stylesheet" href="{{ URL::asset('bh279_back-end/css/jquery-ui.theme.min.css') }}">
               <ul>
@@ -35,6 +34,6 @@
         </div>
 @stop
 @section('footer')
-  <script src="{{ URL::asset('lib/controller/CategoryController.js') }}"></script>
+  {{-- <script src="{{ URL::asset('lib/controller/CategoryController.js') }}"></script> --}}
   <script src="{{ URL::asset('bh279_back-end/js/sortable-admin.js') }}"></script>
 @stop

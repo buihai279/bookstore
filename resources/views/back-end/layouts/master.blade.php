@@ -18,7 +18,7 @@
 <script src="{{ URL::asset('lib/angular.min.js') }}"></script>
 <script src="{{ URL::asset('lib/app.js') }}"></script>
 
-  <script src="//cloud.tinymce.com/stable/tinymce.min.js"></script>
+  <script src="{{ URL::asset('lib/tinymce/tinymce.min.js') }}"></script>
   <script>tinymce.init({ selector:'textarea' });</script>
 </head>
 <body >

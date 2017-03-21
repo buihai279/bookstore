@@ -32,7 +32,9 @@
 		        <tbody id="sortable">
 		          <tr class="" dir-paginate="slide in slides | filter:q | itemsPerPage: pageSize" current-page="currentPage">
                 <td>{{slide.id}}<input type="text" name="order[]" value="{{slide.id}}" hidden="hidded"></td>
-                <td>{{slide.slide_image}}</td>
+                <td>
+                <img ng-if="slide.slide_image" width="70"  class="responsive-img" ng-src="http://localhost/bookstore{{slide.slide_image}}">
+                </td>
 		            <td>{{slide.link}}</td>
 		            <td>{{slide.status}}</td>
 		            <td>{{slide.order}}</td>

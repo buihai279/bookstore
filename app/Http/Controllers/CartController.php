@@ -21,7 +21,7 @@ class CartController extends Controller
         // print_r(Cart::count());echo "<br>";
         // print_r(Cart::tax());echo "<br>";
         // print_r(Cart::total());echo "<br>";
-        print_r(Cart::content());die();
+        dd(Cart::content());
         // return Cart::content();
         //
     }

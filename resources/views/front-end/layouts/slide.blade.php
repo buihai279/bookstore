@@ -3,8 +3,8 @@
     <ul class="swiper-wrapper">
     @foreach ($slides as $element)
         <li class="swiper-slide">
-            <a href="https://tiki.vn" >
-               <img src="{{ URL::asset($element->slide_image) }}">
+            <a href="#" >
+               <img class="responsive-img" style="height: 100%" src="{{ URL::asset($element->slide_image) }}">
             </a>
         </li>
     @endforeach

@@ -18,7 +18,7 @@
                             @endforeach
                         @endif
                         <li class="last">
-                            <a href="/nha-sach-tiki">
+                            <a href="{{ route('viewCategory',$value->id) }}">
                                 <strong>Tất cả Sách</strong>
                             </a>
                         </li>

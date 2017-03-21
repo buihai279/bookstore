@@ -15,6 +15,7 @@ Auth::routes();
 Route::get('/','HomeController@index')->name('homepage');
 Route::get('/danh-muc/{id}','HomeController@viewCategory')->name('viewCategory');
 Route::get('/sach/{id}','HomeController@viewBook')->name('viewBook');
+Route::get('/tac-gia/{id}','HomeController@viewAuthor')->name('viewAuthor');
 
 Route::get('/trang-quan-tri', function () {
     return view('back-end.dashboard');

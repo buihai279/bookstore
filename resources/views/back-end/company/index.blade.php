@@ -31,7 +31,7 @@
 		            <td>{{company.company_name}}</td>
 		            <td>{{company.company_info}}</td>
                 <td>
-                  <img ng-if="company.company_image" width="70"  class="circle responsive-img" ng-src="http://localhost/bookstore{{company.company_image}}">
+                  <img ng-if="company.company_image" width="70"  class="responsive-img" ng-src="http://localhost/bookstore{{company.company_image}}">
                 </td>
 		            <td>{{company.total}}</td>
 		            <td>
