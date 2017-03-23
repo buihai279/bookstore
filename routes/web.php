@@ -13,9 +13,11 @@
 
 Auth::routes();
 Route::get('/','HomeController@index')->name('homepage');
-Route::get('/danh-muc/{id}','HomeController@viewCategory')->name('viewCategory');
+
 Route::get('/sach/{id}','HomeController@viewBook')->name('viewBook');
+Route::get('/danh-muc/{id}','HomeController@viewCategory')->name('viewCategory');
 Route::get('/tac-gia/{id}','HomeController@viewAuthor')->name('viewAuthor');
+Route::get('/cty-phat-hanh/{id}','HomeController@viewCompany')->name('viewCompany');
 
 Route::get('/trang-quan-tri', function () {
     return view('back-end.dashboard');
@@ -58,7 +60,12 @@ Route::resource('slide', 'SlideController');
 Route::resource('book', 'BookController');
 Route::resource('sale', 'SaleController');
 Route::resource('comment', 'CommentController');
+Route::resource('order', 'OrderController');
+Route::resource('save', 'SaveController');
+Route::resource('payment', 'PaymentController');
 
-Route::resource('cart', 'CartController');
 
 Route::post('cart/add', 'CartController@addCart')->name('cart.add');
+Route::post('cart/updateCart', 'CartController@updateCart')->name('cart.updateCart');
+Route::post('cart/deleteCart', 'CartController@deleteCart')->name('cart.deleteCart');
+Route::resource('cart', 'CartController');

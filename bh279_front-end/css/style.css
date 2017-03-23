@@ -566,3 +566,7 @@ span.cart-count {
     font-size: 12px;
     text-align: center;
 }
+span.title{
+    font-size: 13px;
+    line-height: 31px;
+}

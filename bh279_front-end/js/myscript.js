@@ -1,7 +1,22 @@
 $( document ).ready(function(){
-    $('.price-sale span.price').number( true);
-    $('.price-regular').number( true);
-
+    $('.save-book').click(function(){
+      var id=$(this).attr('data-id');
+      $(".saveId").val(id);
+      $("#form-save").submit();
+    });
+     $('#infoUserCheckbox').click(function(){
+        $( "#order_address_hide" ).toggle();
+     })
+    $('.btn-item-delete').click(function(){
+      var id=$(this).attr('data-product-id');
+      $("[data-form-id='"+id+"']").submit();
+    });
+    $('.btn-save-for-later').click(function(){
+      alert($(this).attr('data-product-id'));
+    });
+    $('.number-format').number( true);
+    $('.number-format').number( true);
+    $('.tooltipped').tooltip({delay: 50});
 			// menu
 			 $(".button-collapse").sideNav();
 			 //dropdown

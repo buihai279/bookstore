@@ -119,26 +119,61 @@ class HomeController extends Controller
                         'comments'              =>$comments,
                     ]);
     }
-    public function viewAuthor($bookId=0)
-    {   
-        $book= Book::getBookByBookId($bookId);
-        $comments= Comment::getCommentByBookId($bookId);
-        $dt     = Carbon::now();
-        Carbon::setLocale('vi');
-        // var_dump()($comments);
-        foreach ($comments as $comment) {
-            $comment->strTime=$dt->diffForHumans($comment->updated_at);
-        }
-        if ($book==null)
-            return;
-        return view('front-end.book',[
-                        'categories'            =>$this->categories,
-                        'categoriesChild'       =>$this->categoriesChild,
-                        'companyChild'          =>$this->companyChild,
-                        'authorsChild'          =>$this->authorsChild,
-                        'book'                  =>$book,
-                        'comments'              =>$comments,
-                    ]);
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function viewAuthor($authorId=0)
+    {
+        $author= Author::find($authorId);
+        if ($author==null)
+            return ;
+        // $booksChild=array();
+        // $categoriesChildSelect=Author::getCategoriesByParentID($categorySelect->id);
+
+        // $listCate=CategoryController::getAllIdCategories(Author::getAll(),$categorySelect->id);
+        // if (count($categoriesChildSelect)>0)
+        //     $booksChild=Book::getAllBookByCategoryId($listCate);
+        // else 
+        //     $booksChild=Book::getAllBookByCategoryId(array($categorySelect->id));
+        // return view('front-end.category',[
+        //                 'categories'            =>$this->categories,
+        //                 'categoriesChild'       =>$this->categoriesChild,
+        //                 'companyChild'          =>$this->companyChild,
+        //                 'authorsChild'          =>$this->authorsChild,
+        //                 'categorySelect'        =>$categorySelect,
+        //                 'categoriesChildSelect' =>$categoriesChildSelect,
+        //                 'booksChild'            =>$booksChild,
+        //             ]);
+    }
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function viewCompany($companyId=0)
+    {
+        $company= Company::find($companyId);
+        if ($company==null)
+            return ;
+        // $booksChild=array();
+        // $categoriesChildSelect=Author::getCategoriesByParentID($categorySelect->id);
+
+        // $listCate=CategoryController::getAllIdCategories(Author::getAll(),$categorySelect->id);
+        // if (count($categoriesChildSelect)>0)
+        //     $booksChild=Book::getAllBookByCategoryId($listCate);
+        // else 
+        //     $booksChild=Book::getAllBookByCategoryId(array($categorySelect->id));
+        // return view('front-end.category',[
+        //                 'categories'            =>$this->categories,
+        //                 'categoriesChild'       =>$this->categoriesChild,
+        //                 'companyChild'          =>$this->companyChild,
+        //                 'authorsChild'          =>$this->authorsChild,
+        //                 'categorySelect'        =>$categorySelect,
+        //                 'categoriesChildSelect' =>$categoriesChildSelect,
+        //                 'booksChild'            =>$booksChild,
+        //             ]);
     }
     
 }

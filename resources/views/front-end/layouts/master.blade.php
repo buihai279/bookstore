@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>App Name - @yield('title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{{ URL::asset('bh279_front-end/css/icon.css') }}"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="{{ URL::asset('bh279_front-end/css/materialize.min.css') }}"  media="screen,projection"/>
     <!-- Latest compiled and minified CSS & JS -->
     <link rel="stylesheet" href="{{ URL::asset('bh279_front-end/css/normalize.css') }}">
@@ -83,7 +83,7 @@
     <div class="breadcrumb-wrap" style="margin-bottom: 10px">
         <div class="container">
             <ol class="breadcrumb">
-                <li><a href="/">Trang chủ</a>
+                <li><a href="{{ route('homepage') }}">Trang chủ</a>
                 </li>
                 <li><a href="/nha-sach-tiki">Nhà Sách Tiki</a>
                 </li>
@@ -112,6 +112,7 @@
          @if (!Auth::guest()&&(Auth::user()->level==1||Auth::user()->level==2))
             <li><a href="{{ route('dashboard') }}">Vào trang quản trị</a></li>
         @endif
+        <li><a href="{{ route('save.index') }}">Sách mua sau</a></li>
         <li><a href="{{ route('changePassword') }}">Đổi mật khẩu</a></li>
         <li>
             <a href="{{ route('logout') }}"

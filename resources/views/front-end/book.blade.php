@@ -24,18 +24,19 @@
             </div>
             <p style="" class="old-price-item"  id="p-listpirce">
                 <span>Giá bìa:</span>
-                <span id="span-list-price">{{$book->cover_price}}&nbsp;₫</span>
+                <span id="span-list-price " class="number-format">{{$book->cover_price}}&nbsp;₫</span>
             </p>
             <p class="special-price-item"  id="p-specialprice">
-                <span id="special-price-label">TGiá bán:</span>
-                <span id="span-price">{{$book->price}}&nbsp;₫</span>
+                <span id="special-price-label">Giá bán:</span>
+                <span id="span-price" class="number-format">{{$book->price}}&nbsp;₫</span>
                 <span>(Chưa có VAT)</span>
             </p>
             <p style="" class="saleoff-price-item" id="p-saving-price">
                 <span>Tiết kiệm:</span>
-                <span id="span-saving-price">
-                    12.000&nbsp;₫(20%)
-             </span>
+                <span id="span-saving-price" class="number-format">
+                    {{$book->cover_price-$book->price}}&nbsp;₫
+                </span>
+                <span>( -{{round((1-$book->cover_price/$book->price)*100)}}%)</span>
             </p>
             <form role="form" id="add-to-cart" method="POST" action="{{ route('cart.add') }}">
                 {{ csrf_field() }}
@@ -54,12 +55,24 @@
                                 </div>
                             </div>
                             <div class="cta-box">
-								<button type="sumit" class="waves-effect waves-light btn">
-                                    <i class="material-icons left">cloud</i>button
-                                </button>
-                                @if ($book->quality<=0)
+                                @if ($book->quality<=10&&$book->quality>0)
+                                    <button type="sumit" class="waves-effect waves-light btn">
+                                        <i class="material-icons left">cloud</i>Thêm hàng vào giỏ
+                                    </button>
+                                    <p class="red-text">Chỉ còn {{$book->quality}} cuốn </p>
+                                @elseif($book->quality<=0)
+                                    <button type="sumit" class="waves-effect waves-light btn disabled">
+                                        <i class="material-icons left">cloud</i>Thêm hàng vào giỏ
+                                    </button>
                                     <p class="red-text">Sản phẩm hết hàng</p>
+                                @else
+                                    <button type="sumit" class="waves-effect waves-light btn">
+                                        <i class="material-icons left">cloud</i>Thêm hàng vào giỏ
+                                    </button>
+                                    {{-- <p class="red-text">Sản phẩm hết hàng</p> --}}
                                 @endif
+                                    <a href="#" data-id="{{$book->bookId}}" class="save-book">Thêm vào mua sau</a>
+
                             </div>
                         </div>
                     </div>
@@ -108,6 +121,7 @@
                     <div class="product-content-detail">
                         <div id="gioi-thieu" class="content js-content" itemprop="description">
 							@php
+
 								echo $book->description;
 							@endphp
                         </div>
@@ -272,10 +286,21 @@ $(document).ready(function(){
           @foreach (json_decode($book->images) as $element)
               <img src="{{ url($element) }}" alt="">
           @endforeach
+    @else
+    <p class="red-text">Không có hình ảnh đọc thử</p>
       @endif
     </div>
     <div class="modal-footer">
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Đóng</a>
     </div>
   </div>
+   <div class="fixed-action-btn">
+    <a class="btn-floating btn-large red" href="{{ route('book.edit',$book->bookId) }}">
+      <i class="large material-icons">mode_edit</i>
+    </a>
+  </div>
+  <form action="{{ route('save.store') }}" id="form-save" method="POST">
+    {{ csrf_field() }}
+      <input type="text" hidden="hidden" name="bookId" class="saveId" value="">
+  </form>
 @stop

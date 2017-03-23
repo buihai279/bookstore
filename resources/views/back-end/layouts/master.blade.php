@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>App Name - @yield('title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{{ URL::asset('bh279_front-end/css/icon.css') }}"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="{{ URL::asset('bh279_front-end/css/materialize.min.css') }}"  media="screen,projection"/>
     <!-- Latest compiled and minified CSS & JS -->
     <link rel="stylesheet" href="{{ URL::asset('bh279_front-end/css/style.css') }}">
@@ -17,7 +17,6 @@
 <script src="{{ URL::asset('bh279_back-end/owl-carousel/owl.carousel.min.js') }}"></script>
 <script src="{{ URL::asset('lib/angular.min.js') }}"></script>
 <script src="{{ URL::asset('lib/app.js') }}"></script>
-
   <script src="{{ URL::asset('lib/tinymce/tinymce.min.js') }}"></script>
   <script>tinymce.init({ selector:'textarea' });</script>
 </head>
@@ -36,6 +35,7 @@
                 <li><a class="dropdown-button" href="#!" data-activates="dropdown1">{{ Auth::user()->name }}<i class="material-icons right">arrow_drop_down</i></a></li>
                 <!-- Dropdown Structure -->
                 <ul id="dropdown1" class="dropdown-content">
+                    <li><a href="{{ route('save.index') }}">Sách mua sau</a></li>
                     <li><a href="{{ route('changePassword') }}">Đổi mật khẩu</a></li>
                     <li>
                         <a href="{{ route('logout') }}"
@@ -79,10 +79,10 @@
                 <a href="{{ route('comment.index') }}"><i class="material-icons">comment</i> <span>Comment</span></a>
             </div>
             <div class="item">
-                <a href="/"><i class="material-icons">format_list_numbered</i> <span>Đơn hàng</span></a>
+                <a href="{{ route('order.index') }}"><i class="material-icons">format_list_numbered</i> <span>Đơn hàng</span></a>
             </div>
             <div class="item">
-                <a href="/">  <i class="material-icons">credit_card</i><span>Thanh toán</span></a>
+                <a href="{{ route('payment.index') }}">  <i class="material-icons">credit_card</i><span>Thanh toán</span></a>
             </div>
             <div class="item">
                 <a href="{{ route('sale.index') }}">  
@@ -91,9 +91,6 @@
             </div>
             <div class="item">
                 <a href="{{ route('slide.index') }}">  <i class="material-icons">photo_size_select_actual</i><span>Slide</span></a>
-            </div>
-            <div class="item">
-                <a href="{{ route('news.index') }}">  <i class="material-icons">news</i><span>Tin tức</span></a>
             </div>
         </div>
     </div>
