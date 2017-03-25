@@ -18,6 +18,7 @@ class CreateBooksTable extends Migration
             $table->string('book_name');
             $table->text('description')->nullable();
             $table->date('publish_date')->nullable();
+            $table->integer('suggest')->nullable();
             $table->integer('author_id')->nullable()->unsigned();
             $table->integer('company_id')->nullable()->unsigned();
             $table->integer('category_id')->nullable()->unsigned();

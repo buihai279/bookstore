@@ -18,8 +18,8 @@ class CreatePaymentsTable extends Migration
             $table->string('payment_status')->nullable();
             $table->string('payment_type')->nullable();
             $table->bigInteger('amount')->nullable();
+            $table->timestamps();
             $table->rememberToken()->nullable();
-            $table->timestamp('created_at')->nullable();
         });
     }
 

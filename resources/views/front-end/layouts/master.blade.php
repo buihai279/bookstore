@@ -18,6 +18,8 @@
     <script src="{{ URL::asset('bh279_front-end/js/swiper.jquery.min.js') }}"></script>
     <script src="{{ URL::asset('lib/jquery.number.min.js') }}"></script>
     <script src="{{ URL::asset('bh279_front-end/js/myscript.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('lib/rateYo/jquery.rateyo.min.css') }}">
+    <script src="{{ asset('lib/rateYo/jquery.rateyo.min.js') }}"></script>
 </head>
 <body >
     @section('header')

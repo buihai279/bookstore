@@ -4,7 +4,7 @@
 		<ul class="nav nav-pills nav-stacked">
 			<li role="presentation" class="active">
 			    <a href="{{ route('comment.create') }}" id="sub_studyresults">
-			        <span class="linkwrap">Thêm nhà cung cấp sách</span>
+			        {{-- <span class="linkwrap">Thêm nhà cung cấp sách</span> --}}
 			    </a>
 			</li>
 		</ul>

@@ -16,7 +16,9 @@ Route::get('/','HomeController@index')->name('homepage');
 
 Route::get('/sach/{id}','HomeController@viewBook')->name('viewBook');
 Route::get('/danh-muc/{id}','HomeController@viewCategory')->name('viewCategory');
+
 Route::get('/tac-gia/{id}','HomeController@viewAuthor')->name('viewAuthor');
+
 Route::get('/cty-phat-hanh/{id}','HomeController@viewCompany')->name('viewCompany');
 
 Route::get('/trang-quan-tri', function () {
@@ -36,6 +38,9 @@ Route::get('slide/list','SlideController@getlist')->name('listSlide');
 Route::get('category/list','CategoryController@getlist')->name('listCategory');
 
 Route::get('book/list','BookController@getlist')->name('listBook');
+Route::get('order/list','OrderController@getlist')->name('listOrder');
+Route::get('payment/list','PaymentController@getlist')->name('listPayment');
+
 Route::post('book/uploadImagesBook','BookController@uploadImagesBook')->name('uploadImagesBook');
 Route::post('book/uploadAvatarBook','BookController@uploadAvatarBook')->name('uploadAvatarBook');
 

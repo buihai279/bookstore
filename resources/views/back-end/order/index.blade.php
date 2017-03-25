@@ -1,5 +1,5 @@
-@extends('back-end.layouts.company-master')
-@section('company-content')
+@extends('back-end.layouts.order-master')
+@section('order-content')
  @verbatim 
     <div class="row">
         <div ng-controller="MyController" class="my-controller">
@@ -17,7 +17,7 @@
 		        <thead>
 		          <tr>
 		              <th data-field="id">Id</th>
-		              <th data-field="name">Tên Công ty</th>
+		              <th data-field="name"></th>
 		              <th data-field="info">Giới thiệu</th>
 		              <th data-field="logo">Logo</th>
 		              <th data-field="total">Tổng số sách</th>
@@ -26,14 +26,10 @@
 		        </thead>
 
 		        <tbody>
-		          <tr dir-paginate="company in companys | filter:q | itemsPerPage: pageSize" current-page="currentPage">
-		            <td>{{company.id}}</td>
-		            <td>{{company.company_name}}</td>
-		            <td>{{company.company_info}}</td>
-                <td>{{company.company_image}}</td>
-		            <td>{{company.total}}</td>
+		          <tr dir-paginate="order in orders | filter:q | itemsPerPage: pageSize" current-page="currentPage">
+		            <td>{{order.id}}</td>
 		            <td>
-			            <a href="company/{{company.id}}/edit" class="waves-effect waves-light btn" style="width: 35px;padding: 0">
+			            <a href="order/{{order.id}}/edit" class="waves-effect waves-light btn" style="width: 35px;padding: 0">
 				            <i class="material-icons">edit</i>
 			          	</a>
 		          </td>
@@ -70,5 +66,5 @@
     </div>
 @endverbatim
   <script src="{{ URL::asset('lib/dirPagination.js') }}"></script>
-  <script src="{{ URL::asset('lib/controller/companyController.js') }}"></script>
+  <script src="{{ URL::asset('lib/controller/orderController.js') }}"></script>
 @stop

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Payment;
 class PaymentController extends Controller
 {
     /**
@@ -80,5 +80,9 @@ class PaymentController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function getlist()
+    {
+        return Payment::orderBy('updated_at')->get();
     }
 }

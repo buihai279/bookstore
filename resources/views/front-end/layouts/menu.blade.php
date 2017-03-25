@@ -8,38 +8,44 @@
                 <ul>
                     <li>
                         <div class="nav-sub-list-box">
-                            <a href="#sach-truyen-tieng-viet"><h2>{{$value->category_name}}</h2></a>
-                            <a href="#bestsellers/sach-truyen-tieng-viet/c316">Sách bán chạy</a>
-                            <a href="#sach-truyen-tieng-viet/c316?order=newest">Sách mới</a>
+                            <a href="{{ route('viewCategory',$value->id) }}"><h2>{{$value->category_name}}</h2></a>
                             @foreach ($categoriesChild[$value->id] as $keyChild => $elementChild)
                                 <a href="{{ route('viewCategory',$elementChild->id) }}">{{$elementChild->category_name}}</a>
                                 @if ($keyChild==5) 
-                                @break
+                                    @break
                                 @endif
                             @endforeach
-                            <a href="#sach-truyen-tieng-viet" class="all">Xem tất cả<i class="fa fa-caret-right"></i> </a>
+                            <a href="{{ route('viewCategory',$value->id) }}" class="all">
+                                Xem tất cả ...<i class="fa fa-caret-right"></i> 
+                            </a>
                         </div>
                     </li>
                     <li>
                         <div class="nav-sub-list-box">
-                            <h2>Công ty phát hành</h2>
+                            <a href="#"><h2>Công ty phát hành</h2></a>
                             @foreach ($companyChild[$value->id] as $keyChild => $elementChild)
-                                <a href="#sach-truyen-tieng-viet/c316?order=newest">{{$elementChild->company_name}}</a>
+                                <a href="{{route('viewCompany',$elementChild->id)}}">{{$elementChild->company_name}}</a>
                                 @if ($keyChild==6) 
                                 @break
-                                @endif
+                                    @endif
                             @endforeach
+                            <a href="{{ route('viewCompany',0) }}" class="all">
+                                Xem tất cả công ty phát hành ...<i class="fa fa-caret-right"></i> 
+                            </a>
                         </div>
                     </li>
                     <li>
                         <div class="nav-sub-list-box">
-                            <a href="#sach-tieng-anh"><h2>Tác giả</h2></a>
+                            <a href="#"><h2>Tác giả</h2></a>
                             @foreach ($authorsChild[$value->id] as $keyChild => $elementChild)
-                                <a href="#sach-truyen-tieng-viet/c316?order=newest">{{$elementChild->author_name}}</a>
+                                <a href="{{route('viewAuthor',$elementChild->id)}}">{{$elementChild->author_name}}</a>
                                 @if ($keyChild==6) 
-                                @break
+                                    @break
                                 @endif
                             @endforeach
+                            <a href="{{ route('viewAuthor',0) }}" class="all">
+                                Xem tất cả tác giả ...<i class="fa fa-caret-right"></i> 
+                            </a>
                         </div>
                     </li>
                 </ul>

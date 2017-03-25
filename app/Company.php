@@ -33,4 +33,16 @@ class Company extends Model
                         ");
 
     }
+    public static function getAllCompany()
+    {
+        return DB::select("
+                            SELECT c.id as companyId,c.company_name,c.company_info,c.company_image,  
+                                    count(b.id) as totalBook 
+                            FROM companies as c
+                            LEFT OUTER JOIN books  as b
+                            ON c.id = b.company_id
+                            GROUP BY c.id,c.company_name,c.company_info,c.company_image
+                            ORDER BY totalBook DESC
+                        ");
+    }
 }

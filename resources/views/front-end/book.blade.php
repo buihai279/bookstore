@@ -1,8 +1,6 @@
 @extends('front-end.layouts.master')
 @section('content')
 <script type="text/javascript" src="{{ asset('lib/zoom/jquery.zoom.min.js') }}"></script>
-<link rel="stylesheet" href="{{ asset('lib/rateYo/jquery.rateyo.min.css') }}">
-<script src="{{ asset('lib/rateYo/jquery.rateyo.min.js') }}"></script>
 <div class="row">
 	<div class="col l4">
 	<span class='zoom' id='ex1'>
@@ -18,7 +16,7 @@
             <div class="item-brand">
                 <h6>Tác giả</h6>
                 <p>
-                	<a target="_blank" href="{{$book->author_id}}">{{$book->author_name}}</a>
+                	<a target="_blank" href="{{$book->authorId}}">{{$book->author_name}}</a>
                 </p>
                 <br>
             </div>
@@ -71,12 +69,13 @@
                                     </button>
                                     {{-- <p class="red-text">Sản phẩm hết hàng</p> --}}
                                 @endif
+                                @if (!Auth::guest())
                                     <a href="#" data-id="{{$book->bookId}}" class="save-book">Thêm vào mua sau</a>
-
+                                @endif
+                                <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
                             </div>
                         </div>
                     </div>
-                    <!-- END ADD TO CART -->
                 </div>
             </form>
 		</div>
@@ -96,24 +95,24 @@
 
 	</div>
 </div>
+  <!-- Load Facebook SDK for JavaScript -->
+  <div class="fb-save" data-uri="{{url()->current()}}" data-size="large"></div>
+<div id="fb-root"></div>
+
+
 <!-- Modal Trigger -->
 <a class="modal-trigger waves-effect waves-light btn" href="#modal1">Đọc thử</a>
-
 <div class="row">
     <div class="item-other">
         <div class="item-benefit">
             <p>
-                Xem thêm <a href="{{$book->authorId}}" class="category_brand_list">sách truyện của {{$book->author_name}}</a> tại Tiki.vn
+                Xem thêm Sách<a href="{{$book->authorId}}" class="category_brand_list">{{$book->author_name}}</a>
             </p>
-
         </div>
     </div>
-	
 </div>
 <div class="row">
     <div class="col-xs-12">
-        <div class="box-recommendation-related-product" data-impress-list-title="Product Detail | Sản phẩm thường được xem cùng"></div>
-        <!-- <div class="box-bought-related-product"></div> -->
         <div class="product-content-box">
             <h3 class="product-table-title">Giới Thiệu Sách</h3>
             <div class="row">
@@ -121,7 +120,6 @@
                     <div class="product-content-detail">
                         <div id="gioi-thieu" class="content js-content" itemprop="description">
 							@php
-
 								echo $book->description;
 							@endphp
                         </div>
@@ -154,15 +152,29 @@
             </div>
 
             <div class="box-recentlyviewed-product" id="box-recentlyviewed-product" data-impress-list-title="Product Detail | Sản phẩm bạn đã xem"></div>
-
-            <!-- <div class="box-up-sell-product" id="box-up-sell-product" data-impress-list-title="Product Detail | Sản phẩm thường được mua cùng" ></div> -->
-
             <div class="box-same-author-product" id="box-same-author-product" data-impress-list-title="Product Detail | Sản phẩm cùng tác giả"></div>
             <h3 class="product-table-title">Đánh giá bình luận</h3>
             <div id="rateYo"></div>
             <form class="col s12" action="{{ route('comment.store') }}" method="POST">
                 {{ csrf_field() }}
                 <input type="text" name="txtRate" hidden id='rateYoInput'>
+                <script>
+                    $(document).ready(function(){
+                        $(function () {
+                            $("#rateYo").rateYo({
+                                rating: {{($book->avgComment)?$book->avgComment:0}},
+                                fullStar: true
+                            });
+                        });
+                        $(function () {
+                            $("#rateYo").rateYo()
+                                .on("rateyo.change", function (e, data) {
+                                var rating = data.rating;
+                                    $("#rateYoInput").val(rating);
+                            });
+                        });
+                    });
+                </script>
             	<input type="text" name="txtBookId" value="{{$book->bookId}}" hidden id='txtBookId'>
                 @if ($errors->has('txtRate'))
                     <span class="red-text">
@@ -207,6 +219,9 @@
 			    <div class="product-review-content tab-content">
 			        <div class="col s12" id="review-new">
 			            <div data-reactroot="" class="review-list">
+                            @if ($book->avgComment<=0)
+                               <p class="red-text">Không có bình luận</p>     
+                            @endif
                             @foreach ($comments as $comment)
     			                <div class="item" itemprop="review" itemtype="http://schema.org/Review">
     			                    <div itemprop="itemReviewed" itemtype="http://schema.org/Product"><span itemprop="name" content=""></span>
@@ -221,9 +236,18 @@
     			                    </div>
     			                    <div class="product-col-2">
     			                        <div class="infomation">
-    			                            <div class="rating">
-    			                                {{$comment->rate}}
+    			                            <div class="rateYo{{$comment->id}}">
     			                            </div>
+                                              <script>
+                                                  $(document).ready(function(){
+                                                    $(function () {
+                                                      $(".rateYo{{$comment->id}}").rateYo({
+                                                        rating: {{$comment->rate}},
+                                                        readOnly: true
+                                                      });
+                                                    });
+                                                  });
+                                              </script>
     			                            <p class="review" itemprop="name">{{$comment->title}}</p>
     			                            <div class="description js-description">
     			                                <p class="review_detail" itemprop="reviewBody">
@@ -241,40 +265,17 @@
 			        </div>
 			        <div class="col s12 active" id="review-facebook">
 			            <div data-reactroot="" class="review-list">
+                            <div class="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-numposts="5"></div>
 			            </div>
 			        </div>
 			    </div>
 			</div>
-
 </div>
         </div>
     </div>
 </div>
-@php
-    $avg=0;
-    if (is_array($comments)):
-        $t=0;
-        foreach ($comments as $comment):
-            $t+=$comment->rate;
-        endforeach;
-        $avg=number_format($t/count($comments),2);
-    endif;
-@endphp
 <script>
 $(document).ready(function(){
-	$(function () {
-		$("#rateYo").rateYo({
-			rating: {{$avg}},
-			fullStar: true
-		});
-	});
-	$(function () {
-  		$("#rateYo").rateYo()
-          	.on("rateyo.change", function (e, data) {
-    		var rating = data.rating;
-	            $("#rateYoInput").val(rating);
-      	});
-	});
 	$('#ex1').zoom();
 });
 </script>
@@ -282,12 +283,12 @@ $(document).ready(function(){
   <div id="modal1" class="modal modal-fixed-footer">
     <div class="modal-content">
       <h4>Đọc thử vài trang sách</h4>
-      @if (is_array(json_decode($book->images)))
-          @foreach (json_decode($book->images) as $element)
+        @if (is_array(json_decode($book->images)))
+            @foreach (json_decode($book->images) as $element)
               <img src="{{ url($element) }}" alt="">
-          @endforeach
-    @else
-    <p class="red-text">Không có hình ảnh đọc thử</p>
+            @endforeach
+        @else
+            <p class="red-text">Không có hình ảnh đọc thử</p>
       @endif
     </div>
     <div class="modal-footer">

@@ -53,4 +53,21 @@ class Author extends Model
                         ->orderBy('author_name')
                         ->get();
     }
+    public static function getAllAuthor()
+    {
+        return  DB::select("SELECT a.id as authorId,
+                                    count(b.id) as 'totalBook',
+                                    a.author_name,
+                                    a.author_image
+                            FROM authors as a
+                            LEFT OUTER JOIN books  as b
+                            ON b.author_id=a.id
+                            GROUP BY    a.id,
+                                        a.author_name,
+                                        a.author_image
+                            ORDER BY totalBook DESC
+                        "
+                    );
+    }
+
 }

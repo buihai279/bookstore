@@ -39,17 +39,17 @@
                             <div class="card-image">
                                 <img src="{{ URL::asset($book->book_image) }}">
                                 @if ($book->quality>0)
-                                    <a href="{{ route('cart.add',$book->id)}}" class="btn-floating halfway-fab waves-effect waves-light red hoverable tooltipped" data-tooltip="Thêm hàng vào giỏ">
+                                    <a href="{{ route('viewBook',$book->bookId)}}" class="btn-floating halfway-fab waves-effect waves-light red hoverable tooltipped" data-tooltip="Thêm hàng vào giỏ">
                                         <i class="material-icons">shopping_cart</i>
                                     </a>
                                 @else
-                                 <a href="#" style="cursor:not-allowed;" class="btn-floating halfway-fab disabled hoverable tooltipped" data-tooltip="Hết hàng">
+                                 <a href="#" style="cursor:not-allowed;" class="btn-floating halfway-fab hoverable tooltipped" data-tooltip="Hết hàng">
                                     <i class="material-icons">remove_shopping_cart</i>
                                     </a>
                                 @endif
                             </div>
                             <div class="card-content ">
-                                <a  href="{{ route('viewBook',$book->id) }}" title="{{$book->book_name}}" >
+                                <a  href="{{ route('viewBook',$book->bookId) }}" title="{{$book->book_name}}" >
                                     <span class="card-title">
                                         {{$book->book_name}}
                                     </span>

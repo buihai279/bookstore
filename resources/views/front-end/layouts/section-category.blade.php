@@ -17,7 +17,7 @@
                         @endforeach
                     @endif
                     <li class="last">
-                        <a href="/nha-sach-tiki">
+                        <a href="#">
                             <strong>Tất cả Sách</strong>
                         </a>
                     </li>
@@ -26,30 +26,35 @@
         </div>
     </div>
     <div class="row" style="box-sizing:content-box;border: 1px solid #dfdfdf;">
-        @foreach ($booksChild as $keyChild => $elementChild)
+        @foreach ($booksChild as $keyChild => $book)
             <div class="col s12 m4 l3">
                 <div class="card product-item hoverable">
                     <div class="card-image">
-                        <img src="{{ URL::asset($elementChild->book_image) }}">
-                        <a class="btn-floating halfway-fab waves-effect waves-light red hoverable">
-                            <i class="material-icons">add_shopping_cart</i>
-                        </a>
+                        <img src="{{ URL::asset($book->book_image) }}">
+                        @if ($book->quality>0)
+                            <a href="{{ route('viewBook',$book->bookId)}}" class="btn-floating halfway-fab waves-effect waves-light red hoverable tooltipped" data-tooltip="Thêm hàng vào giỏ">
+                                <i class="material-icons">shopping_cart</i>
+                            </a>
+                        @else
+                         <a href="#" style="cursor:not-allowed;" class="btn-floating halfway-fab hoverable tooltipped" data-tooltip="Hết hàng">
+                            <i class="material-icons">remove_shopping_cart</i>
+                            </a>
+                        @endif
                     </div>
                     <div class="card-content ">
-                        <a  href="#" title="Sword Art Online 006" >
+                        <a  href="{{ route('viewBook',$book->bookId) }}" title="{{$book->book_name}}" >
                             <span class="card-title">
-                                {{$elementChild->book_name}}
+                                {{$book->book_name}}
                             </span>
-                            <div class="author">{{$elementChild->author_name}}</div>
+                            <div class="author">{{$book->author_name}}</div>
                         </a>
                     </div>
                     <div class="card-action">
-                            <div class="price-sale"><span class="price">{{$elementChild->price}}</span>&nbsp;₫ 
-                                <span class="price-regular">{{$elementChild->cover_price}}&nbsp;₫</span>
-                                <span class="new badge orange " data-badge-caption="-{{round((1-$elementChild->cover_price/$elementChild->price)*100)}}%"></span>
-                            </div>
-
-                            <div class="review ">Chưa có nhận xét</div>
+                        <div class="price-sale"><span class="price">{{$book->price}}</span>&nbsp;₫ 
+                            <span class="price-regular">{{$book->cover_price}}&nbsp;₫</span>
+                            <span class="new badge orange " data-badge-caption="-{{round((1-$book->cover_price/$book->price)*100)}}%"></span>
+                        </div>
+                        <div class="review "> </div>
                     </div>
                 </div>
             </div>

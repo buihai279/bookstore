@@ -24,7 +24,7 @@ class SaveController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
         $this->categories=Category::getCategoriesByParentID(0);//lấy danh mục theo paarent id truyền vào
         $this->categoryAll=Category::getAll();//lấy toàn bộ danh mục
         foreach ($this->categories as $value) {
@@ -134,11 +134,15 @@ class SaveController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($bookId)
     {
-        if (Save::find($id)!=null) {
-            Save::destroy($id);
+        // $bookId=(int)$bookId;
+        $save=Save::where('user_id','=',Auth::id())
+                    ->where('book_id','=',$bookId)->get()->first();
+        if ($save!=null) {
+            Save::destroy($save->id);
             return redirect()->route('save.index');
         }
+        return;
     }
 }

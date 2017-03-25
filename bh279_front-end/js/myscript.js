@@ -1,8 +1,19 @@
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8&appId=868245903223472";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
 $( document ).ready(function(){
     $('.save-book').click(function(){
       var id=$(this).attr('data-id');
       $(".saveId").val(id);
       $("#form-save").submit();
+    });
+    $('.btn-delete-save').click(function(){
+      var id=$(this).attr('data-id');
+      $("#fmtDeleteSave[data-form-id='"+id+"']").submit();
     });
      $('#infoUserCheckbox').click(function(){
         $( "#order_address_hide" ).toggle();

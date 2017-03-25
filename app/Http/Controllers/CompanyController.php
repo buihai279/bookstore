@@ -143,17 +143,7 @@ class CompanyController extends Controller
 
     public function getlist()
     {
-        // return Company::orderBy('company_name')->get();
-        return DB::select("
-                            SELECT c.id,c.company_name,c.company_info,c.company_image,  
-                                    count(b.company_id) as total 
-                            FROM companies as c
-                            LEFT OUTER JOIN books  as b
-                            ON c.id = b.company_id
-                            GROUP BY c.id,c.company_name,c.company_info,c.company_image
-                            ORDER BY total DESC
-
-                        ");
+        return Company::getAllCompany();
     }
     /**
      * Remove the specified resource from storage.
