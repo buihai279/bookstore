@@ -4,7 +4,6 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
-<blockquote class="imgur-embed-pub" lang="en" data-id="NPti9Jf"><a href="//imgur.com/NPti9Jf">View post on imgur.com</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
 ## Hướng dẫn cài đặt<br>
 ==================SETUP  --  Cách 1========================<br>
 1.Chạy file setup.bat (chờ 1-2 phút để nó tự tạo database và import dữ liệu vào database)<br>
