@@ -12,10 +12,12 @@ class SlidesSeederTable extends Seeder
     public function run()
     {
 
+        for ($i=1; $i < 6; $i++) { 
+            
          DB::table('slides')->insert(
                 [
                     [
-                        'slide_image' => '/storage/app/hinh-anh/anh-bia/you-can-win_1_1_1.jpg',
+                        'slide_image' => '/storage/app/slide-image/'.$i.'.png',
                         'link' => '#',
                         'order' => 1,
                         'status' => 1,
@@ -24,5 +26,6 @@ class SlidesSeederTable extends Seeder
                     ]
                 ]
             );
+        }
     }
 }

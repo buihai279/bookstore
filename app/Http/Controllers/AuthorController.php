@@ -10,10 +10,16 @@ use Storage;
 
 use App\Author;
 
+use Auth;
+
 use Illuminate\Support\Facades\DB;
 
 class AuthorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('level');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -67,17 +73,6 @@ class AuthorController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -104,9 +99,9 @@ class AuthorController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'txtNameAuthor' => 'required|min:1',
-            'txtAuthorInfo' => '',
-            'txtAuthorImage' => 'max:255',
+            'txtNameAuthor'     => 'required|min:1',
+            'txtAuthorInfo'     => '',
+            'txtAuthorImage'    => 'max:255',
         ]);
         if ($validator->fails()) {
             return redirect()
@@ -115,9 +110,9 @@ class AuthorController extends Controller
                         ->withInput();
         }
         $author = Author::find($id);
-        $author->author_name = $request->txtNameAuthor;
-        $author->author_info = $request->txtAuthorInfo;
-        $author->author_image = $request->txtAuthorImage;
+        $author->author_name    = $request->txtNameAuthor;
+        $author->author_info    = $request->txtAuthorInfo;
+        $author->author_image   = $request->txtAuthorImage;
         $author->save();
         return redirect()->route('author.index');
     }
@@ -131,7 +126,6 @@ class AuthorController extends Controller
     public function destroy($id)
     {
         if (Author::find($id)!=null) {
-            // Author::where('parent_id', $id)->delete();
             Author::destroy($id);
             // deletebook
             return redirect()->route('author.index');
@@ -148,12 +142,6 @@ class AuthorController extends Controller
     {
         return Author::getTopAuthor();
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     /**
      * Remove the specified resource from storage.
      *

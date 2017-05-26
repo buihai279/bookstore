@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Category;
-use App\Author;
-use App\Company;
+
 use App\Book;
+
 use Cart;
+
 use App\Http\Controllers\OrderController;
 
 class CartController extends Controller
@@ -20,29 +20,19 @@ class CartController extends Controller
       public function __construct()
     {
         // $this->middleware('auth');
-        $this->categories=Category::getCategoriesByParentID(0);//lấy danh mục theo paarent id truyền vào
-        $this->categoryAll=Category::getAll();//lấy toàn bộ danh mục
-        foreach ($this->categories as $value) {
-            $this->categoriesChild[$value->id]=Category::getCategoriesByParentID($value->id);
-            $listCate=CategoryController::getAllIdCategories($this->categoryAll,$value->id);
-            $this->authorsChild[$value->id]=Author::getTopAuthorInCategories($listCate);
-            $this->companyChild[$value->id]=Company::getTopCompanyInCategories($listCate);
-        }
     }
+    
     public function index()
     {  
         $booksInCart=array();
+
         foreach (Cart::content() as $key => $value) {
             $booksInCart[$value->id]=Book::getBookInCart($value->id);
         }
-        return view('front-end.cart',[
-                        'categories'        =>$this->categories,
-                        'categoriesChild'   =>$this->categoriesChild,
-                        'companyChild'      =>$this->companyChild,
-                        'authorsChild'      =>$this->authorsChild,
-                        'booksInCart'        =>$booksInCart,
-                        // 'slides'            =>$slides,
-                    ]);
+
+        return BaseClass::handlingView('front-end.cart',[
+                            'booksInCart'       =>$booksInCart,
+                        ]);
     }
     public function addCart(Request $request)
     {
@@ -64,60 +54,6 @@ class CartController extends Controller
         // dd(Cart::content());
         return redirect()->route('cart.index');
         //
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        dd($request);
     }
 
     /**

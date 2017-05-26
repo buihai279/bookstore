@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
 use Auth;
+
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -43,15 +46,17 @@ class LoginController extends Controller
     {
         $email=$request->email;
         $password=$request->password;
+
         if (Auth::attempt(['email' => $email, 'password' => $password, 'deleted' => false,'block' =>false])) {
             $user = Auth::user();
-            if($user->level==0){
+
+            if($user->level==0)
                 return redirect()->route('homepage');
-            }else if($user->level==1||$user->level==2){
+            else if($user->level==1||$user->level==2)
                 return redirect()->route('dashboard');
-            }
-        }else{
+            
+        }else
             return 'Mật khẩu sai,Không tồn tại hoặc đã bị xóa';
-        }
+        
     }
 }

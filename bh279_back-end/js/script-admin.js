@@ -13,7 +13,7 @@ $(document).ready(function () {
                 items:6
             },
             1000:{
-                items:9
+                items:8
             }
         }
     });
@@ -65,7 +65,7 @@ $('#btnUploadLogoCompany').click(function(){
   });
 });
 $('#btnUploadImageSlide').click(function(){
-  alert(1);
+  // alert(1);
   $('#inputUploadAvatar').click();
   $('#inputUploadAvatar').change(function(){
     $('#btnSubmitAvatar').click();

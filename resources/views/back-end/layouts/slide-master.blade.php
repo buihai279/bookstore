@@ -1,18 +1,15 @@
 @extends('back-end.layouts.master')
 @section('left-sidebar')
-        <div class="col l2  m2  s3 menu">
-
-		  <ul class="nav nav-pills nav-stacked">
-		    <li role="presentation" class="active">
-		        <a href="{{ route('slide.create') }}" id="sub_studyresults">
-		            <span class="linkwrap">Thêm Slide</span>
-		        </a>
-		    </li>
-		  </ul>
-        </div>
-@stop
-@section('content')
-        <div class="col l10  m10  s12">
+@section('content')   
+<div class="fixed-action-btn toolbar">
+    <a class="btn-floating btn-large red">
+      <i class="large material-icons">menu</i>
+    </a>
+    <ul>
+      <li class="waves-effect waves-light red"><a href="{{ route('slide.create') }}"><i class="material-icons">insert_chart</i>Thêm Slide</a></li>
+    </ul>
+  </div>
+        <div class="col l12  m12  s12">
 
   @yield('slide-content')
         </div>

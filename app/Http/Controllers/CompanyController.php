@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\DB;
 
 class CompanyController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('level');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -45,9 +49,9 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'txtNameCompany' => 'required|min:1',
-            'txtCompanyInfo' => '',
-            'txtCompanyLogo' => 'max:255',
+                        'txtNameCompany' => 'required|min:1',
+                        'txtCompanyInfo' => '',
+                        'txtCompanyLogo' => 'max:255',
         ]);
         if ($validator->fails()) {
             return redirect()
@@ -62,20 +66,11 @@ class CompanyController extends Controller
         $company->company_info = $request->txtcompanyInfo;
 
         $company->company_image = $request->txtCompanyLogo;
+
         $company->save();
         return redirect()->route('company.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -86,11 +81,13 @@ class CompanyController extends Controller
     public function edit($id)
     {
         $books = Company::find($id)->books;
+
         $company=Company::find($id);
+
         return view('back-end.company.edit',
             [
-                'company'=>$company,
-                'books'=>$books
+                'company'   =>$company,
+                'books'     =>$books
             ]);
     }
 
@@ -121,6 +118,7 @@ class CompanyController extends Controller
         $company->company_info = $request->txtCompanyInfo;
 
         $company->company_image = $request->txtCompanyLogo;
+
         $company->save();
         return redirect()->route('company.index');
     }
@@ -134,9 +132,9 @@ class CompanyController extends Controller
     public function destroy($id)
     {
         if (Company::find($id)!=null) {
-            // Author::where('parent_id', $id)->delete();
+
             Company::destroy($id);
-            // deletebook
+
             return redirect()->route('company.index');
         }
     }
@@ -153,7 +151,10 @@ class CompanyController extends Controller
      */
     public static function getlistCompany()
     {
-        return Company::select('id','company_name','company_image')->distinct()->orderBy('company_name')->get();
+        return Company::select('id','company_name','company_image')
+                        ->distinct()
+                        ->orderBy('company_name')
+                        ->get();
     }
     /**
      * Remove the specified resource from storage.
@@ -163,12 +164,18 @@ class CompanyController extends Controller
      */
     public function uploadCompanyLogo(Request $request){
         $file = $request->file('file');
+
         if(!empty($file)):
+
             $info=pathinfo($file->getClientOriginalName());
+
             $name='company-image/'.$info['filename'].time().'.'.$info['extension'];
+
             Storage::put($name, file_get_contents($file));
+
             $url = Storage::url('app/'.$name);
         endif;
+        
         return \Response::json(array('success' => true,'file'=>$url));
     }
 

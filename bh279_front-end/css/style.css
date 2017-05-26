@@ -1,6 +1,29 @@
+/*--------scroll--------------*/
+body::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #f1f1f1;
+}
+
+body::-webkit-scrollbar
+{
+    width: 7px;
+    background-color: #f1f1f1;
+}
+
+body::-webkit-scrollbar-thumb
+{
+    background-color: #FF8D37;
+    
+    background-image: -webkit-gradient(linear, 0 0, 0 100%,
+                       color-stop(.5, rgba(255, 255, 255, .2)),
+                       color-stop(.5, transparent), to(transparent));
+}
+
+
 .search-wrapper input#search {
     display: block;
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 300;
     width: 100%;
     height: 40px;
@@ -14,16 +37,20 @@
     right: 10px;
     cursor: pointer;
 }
+
+
 .nav-wrapper .container .row{
 	margin-bottom: 0;
 }
+
+
 .wrap{
-    /*margin-top: 45px;*/
 }
+
 .wrap .container{
-    /*width: auto;
-    max-width: 90%;*/
 }
+
+
  i.material-icons {
       vertical-align: middle;
  }
@@ -35,9 +62,11 @@
     -webkit-box-shadow: 1px 1px 1px 0 rgba(0,0,0,.1);
     box-shadow: 1px 1px 1px 0 rgba(0,0,0,.1);
 }
+
 header{
     position: relative;
 }
+
  .main-nav-wrap>ul {
     border: 1px solid #dfdfdf;
     border-right: none;
@@ -569,4 +598,15 @@ span.cart-count {
 span.title{
     font-size: 13px;
     line-height: 31px;
+}
+/*PNG LOADING*/
+.png-loading{
+    background: center center no-repeat rgb(255, 255, 255);
+    background-size: 100px;
+     position: fixed;
+     left: 0px;
+     top: 0px;
+     width: 100%;
+     height: 100%;
+     z-index: 9999;
 }

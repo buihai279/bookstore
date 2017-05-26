@@ -8,7 +8,7 @@
         @endif
 
         {{-- Pagination Elements --}}
-        @foreach ($elements as $element)
+        @foreach ($paginator as $element)
             {{-- "Three Dots" Separator --}}
             @if (is_string($element))
                 <li class="disabled"><span>{{ $element }}</span></li>

@@ -14,6 +14,13 @@ class Category extends Model
 
     public $timestamps = false;
     
+    /**
+     *
+     *  relationship 1-n (1 Category - n Book)
+     *  
+     *  
+     *
+     */
     public function books()
     {
         return $this->hasMany('App\Book');

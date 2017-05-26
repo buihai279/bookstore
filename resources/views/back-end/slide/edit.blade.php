@@ -37,16 +37,11 @@
 
       <div class="row">
         <div class="input-field col s12 l12">
-            <div class="switch">
-                <label>
-                  Off
-                  <input type="checkbox" name="cb_status" value="@if ($slide->status)
-                    {{'on'}}
-                  @endif">
-                  <span class="lever"></span>
-                  On
-                </label>
-              </div>
+          <input type="checkbox" class="filled-in" id="filled-in-box" name="cb_status"  @if ($slide->status=='1')
+                    checked="checked"
+                  @endif  />
+              <label for="filled-in-box">Hiển thị</label>
+            <span class="lever"></span>
             @if ($errors->has('cb_status'))
               <span class="red-text">
                   <strong>{{ $errors->first('cb_status') }}</strong><br>

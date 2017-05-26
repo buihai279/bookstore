@@ -13,7 +13,7 @@
                                     <a href="{{ route('viewCategory',$elementChild->id) }}">{{$elementChild->category_name}}</a>
                                 </li>
                                 @if ($keyChild==4) 
-                                @break
+                                    @break
                                 @endif
                             @endforeach
                         @endif
@@ -28,49 +28,31 @@
         </div>
         <div class="row" style="box-sizing:content-box;border: 1px solid #dfdfdf;">
             <ul id="tabs-swipe-demo" class="tabs tabs-fixed-width" style="box-sizing:content-box;border-bottom: 1px solid #dfdfdf;">
-                <li class="tab col s2"><a href="#category-{{$value->id}}-swipe-1">Gợi ý</a></li>
-                <li class="tab col s2"><a href="#category-{{$value->id}}-swipe-2">Bán chạy</a></li>
-                <li class="tab col s2"><a href="#category-{{$value->id}}-swipe-3">Sách mới</a></li>
+                <li class="tab col s2"><a href="#category-{{$value->id}}-swipe-0">Sách mới</a></li>
+                <li class="tab col s2"><a href="#category-{{$value->id}}-swipe-1">Bán chạy</a></li>
+                <li class="tab col s2"><a href="#category-{{$value->id}}-swipe-2">Gợi ý</a></li>
             </ul>
-            <div id="category-{{$value->id}}-swipe-1" class="col s12 l12 m12">
-                @foreach ($booksChild[$value->id] as $keyBook => $book)
-                    <div class="col s12 m4 l3">
-                        <div class="card product-item hoverable">
-                            <div class="card-image">
-                                <img src="{{ URL::asset($book->book_image) }}">
-                                @if ($book->quality>0)
-                                    <a href="{{ route('viewBook',$book->bookId)}}" class="btn-floating halfway-fab waves-effect waves-light red hoverable tooltipped" data-tooltip="Thêm hàng vào giỏ">
-                                        <i class="material-icons">shopping_cart</i>
-                                    </a>
-                                @else
-                                 <a href="#" style="cursor:not-allowed;" class="btn-floating halfway-fab hoverable tooltipped" data-tooltip="Hết hàng">
-                                    <i class="material-icons">remove_shopping_cart</i>
-                                    </a>
-                                @endif
-                            </div>
-                            <div class="card-content ">
-                                <a  href="{{ route('viewBook',$book->bookId) }}" title="{{$book->book_name}}" >
-                                    <span class="card-title">
-                                        {{$book->book_name}}
-                                    </span>
-                                    <div class="author">{{$book->author_name}}</div>
-                                </a>
-                            </div>
-                            <div class="card-action">
-                                <div class="price-sale">
-                                    <span class="price number-format">{{$book->price}}</span>&nbsp;₫ 
-                                    <span class="price-regular number-format">{{$book->cover_price}}&nbsp;₫</span>
-                                    <span class="new badge orange " data-badge-caption="-{{round((1-$book->cover_price/$book->price)*100)}}%"></span>
-                                </div>
-                                <div class="review ">Chưa có nhận xét</div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-            <div id="category-{{$value->id}}-swipe-2" class="col s12 l12 m12">
-            </div>
-            <div id="category-{{$value->id}}-swipe-3" class="col s12 l12 m12">
+            @php
+                $array=array();
+                $array[]=$booksNew[$value->id];
+                $array[]=$booksHot[$value->id];
+                $array[]=$booksSuggest[$value->id];
+            @endphp
+            @foreach ($array as $key => $element)
+                <div id="category-{{$value->id}}-swipe-{{$key}}" class="col s12 l12 m12">
+                    @foreach ($element as $keyBook => $book)
+                        @include('front-end.layouts.one-book')
+                    @endforeach
+                </div>
+            @endforeach
         </div>
     </section>
 @endforeach
+<div>
+    <p class="red-text">Top công ty phát hành sách</p>
+    @foreach ($topCompany as $company)
+        <a href="{{ route('viewCompany',$company->id) }}">
+            <img width="11%" style="margin-left: 5px" src="{{($company->company_image)?url($company->company_image):'storage/app/noimagefound.jpg'}}" alt="{{$company->company_name}}">
+        </a>
+    @endforeach
+</div>

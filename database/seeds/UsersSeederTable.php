@@ -14,55 +14,38 @@ class UsersSeederTable extends Seeder
          DB::table('users')->insert(
 	         	[
 					[
-			            'name' => str_random(10),
+			            'name' => 'Adminstrator',
 			            'email' => 'buihai2603@gmail.com',
 			            'password' => bcrypt('123456'),
 			            'phone' => 1664872279,
-			            'address' =>str_random(10).'hà nội',
+			            'address' =>'Từ liêm Hà nội',
 			            'level' =>2,
 			            'created_at' =>new DateTime(),
 						'updated_at' => new DateTime()
 
 			        ],
 			        [
-			            'name' => str_random(10),
+			            'name' => 'Mod',
 			            'email' => 'mod@gmail.com',
 			            'password' => bcrypt('123456'),
 			            'phone' => 1664872279,
-			            'address' =>str_random(10).'hà nội',
+			            'address' =>'Từ liêm Hà nội',
 			            'level' =>1,
 			            'created_at' =>new DateTime(),
 						'updated_at' => new DateTime()
 
-			        ],
-			        [
-			            'name' => str_random(10),
-			            'email' => 'member@gmail.com',
+			        ]
+	         	]
+         	);
+         for ($i=3; $i <= 20; $i++) { 
+         	DB::table('users')->insert(
+	         	[
+					[
+			            'name' =>'Người dùng '.$i,
+			            'email' => 'member'.$i.'@gmail.com',
 			            'password' => bcrypt('123456'),
 			            'phone' => 1664872279,
-			            'address' =>str_random(10).'hà nội',
-			            'level' =>0,
-			            'created_at' =>new DateTime(),
-						'updated_at' => new DateTime()
-
-			        ],
-			        [
-			            'name' => str_random(10),
-			            'email' => 'member1@gmail.com',
-			            'password' => bcrypt('123456'),
-			            'phone' => 1664872279,
-			            'address' =>str_random(10).'hà nội',
-			            'level' =>0,
-			            'created_at' =>new DateTime(),
-						'updated_at' => new DateTime()
-
-			        ],
-			        [
-			            'name' => str_random(10),
-			            'email' => 'member2@gmail.com',
-			            'password' => bcrypt('123456'),
-			            'phone' => 1664872279,
-			            'address' =>str_random(10).'hà nội',
+			            'address' =>'Địa chỉ nhà số '.$i.' Văn Tiến Dũng, HN',
 			            'level' =>0,
 			            'created_at' =>new DateTime(),
 						'updated_at' => new DateTime()
@@ -70,5 +53,6 @@ class UsersSeederTable extends Seeder
 			        ]
 	         	]
          	);
+         }
     }
 }

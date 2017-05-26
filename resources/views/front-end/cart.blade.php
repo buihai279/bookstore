@@ -1,3 +1,6 @@
+@section('title')
+Giỏ hàng
+@stop
 @extends('front-end.layouts.master')
 @section('content')
 <div class="row">
@@ -9,10 +12,10 @@
             <thead>
                 <tr>
                     <th style="width: 20%"></th>
-                    <th style="width: 40%">Product</th>
-                    <th style="width: 10%">Qty</th>
-                    <th style="width: 15%">Price</th>
-                    <th style="width: 15%">Subtotal</th>
+                    <th style="width: 40%">Sách</th>
+                    <th style="width: 10%">Số lượng</th>
+                    <th style="width: 15%">Giá</th>
+                    <th style="width: 15%">Tổng</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,10 +43,12 @@
                                 <a href="javascript:void(0);" class="btn-item-delete" data-product-id="{{$row->rowId}}">
                                     Xóa
                                 </a>
+                                @if (!Auth::guest())
                                  &nbsp;| &nbsp;
                                 <a href="javascript:void(0);" class="btn-save-for-later" data-product-id="{{$row->id}}">
                                     Để dành mua sau
                                 </a>
+                                @endif
                             </p>
                       </td>
                       <td><input type="number" name="rowIds[{{$row->rowId}}]" value="{{$row->qty}}" class="number-format"></td>
@@ -66,10 +71,6 @@
                 <td><span class="number-format">{{Cart::subtotal()}}</span> <span> &nbsp;₫</span></td>
               </tr>
               <tr>
-                <td>Mã Giảm giá:</td>
-                <td><span class="number-format">1212</span>&nbsp;₫</td>
-              </tr>
-              <tr>
                 <td>Thuế:</td>
                 <td><span class="number-format">{{Cart::tax()}}</span> <span> &nbsp;₫</span></td>
               </tr>
@@ -83,23 +84,6 @@
               </tfoot>
             </tbody>
           </table>
-            <ul class="collapsible" data-collapsible="accordion">
-            <li class="active">
-              <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
-              <div class="collapsible-body">
-            
-                <form action="">
-                  <div class="input-field">
-                    <input id="txtcoupon" type="text" name="txtCoupon" class="validate">
-                    <label for="txtcoupon">Nhập mã giảm giá</label>
-                    </div>
-                <button class="btn waves-effect waves-light" type="submit" name="action">Xác nhận
-                  <i class="material-icons right">send</i>
-                </button>
-                </form>
-              </div>
-            </li>
-          </ul>
     </div>
   @else
     <p class="red-text" style="height: 400px;">Không có sản phẩm nào trong giỏ hàng</p>
@@ -112,4 +96,8 @@
     {{ csrf_field() }}
   </form>
 @endforeach
+  <form action="{{ route('save.store') }}" id='form_save' method="POST" style="display: none;">
+    {{ csrf_field() }}
+    <input id="saveId" name="bookId">
+  </form>
 @stop

@@ -1,3 +1,6 @@
+@section('title')
+Thanh toán 
+@stop
 @extends('front-end.layouts.master')
 @section('content')
   <form action="{{ route('order.store') }}" method="POST">
@@ -122,5 +125,9 @@
         </div>
       </div>
     </div>
+
+<img src="http://www.baokim.vn/developers/uploads/baokim_btn/thanhtoan-l.png" alt="Thanh toán an toàn với Bảo Kim !" border="0" title="Thanh toán trực tuyến an toàn dùng tài khoản Ngân hàng (VietcomBank, TechcomBank, Đông Á, VietinBank, Quân Đội, VIB, SHB,... và thẻ Quốc tế (Visa, Master Card...) qua Cổng thanh toán trực tuyến BảoKim.vn" >
+</a>
+
   </form>
   @stop

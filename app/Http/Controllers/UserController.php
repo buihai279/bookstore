@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('level');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -23,41 +27,10 @@ class UserController extends Controller
     {
         return view('back-end.users.show');
     }
+
     public function getList()
     {
         return User::get();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        
     }
 
     /**
@@ -69,11 +42,12 @@ class UserController extends Controller
     public function edit($id)
     {
         $user= User::find($id);
-        if ($user==null) {
+
+        if ($user==null) 
             return 'Không tìm thấy người dùng';
-        }else{
+        else
             return view('back-end.users.edit', ['user' => $user]);
-        }
+        
     }
 
     /**
@@ -85,14 +59,25 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request->btn_delete);
-        if (($request->rdo_level==0||$request->rdo_level==1||is_bool($request->rdo_block))&&$request->id==$id&&$request->btn_update=='update') {
-            if($request->rdo_block==null) $request->rdo_block=0;
+
+        if (
+            ($request->rdo_level==0
+                ||$request->rdo_level==1
+                ||is_bool($request->rdo_block)
+            )
+            &&$request->id==$id
+            &&$request->btn_update=='update'
+        ){
+            if($request->rdo_block==null) 
+                $request->rdo_block=0;
+
             $user = User::find($id);
-            if ($user->deleted) {
+
+            if ($user->deleted) 
                 return 'Tài khoản đã bị xóa trước đó';
-            }
+            
             $user->level = $request->rdo_level;
+
             $user->block = $request->rdo_block;
 
             $user->save();
@@ -142,20 +127,27 @@ class UserController extends Controller
     public function submitPassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'password' => 'required|min:6',
-            'newPassword' => 'required|min:6|confirmed',
+            'password'      => 'required|min:6',
+            'newPassword'   => 'required|min:6|confirmed',
         ]);
+
         if ($validator->fails()) {
             return redirect()
-                        ->route('changePassword')
-                        ->withErrors($validator)
-                        ->withInput();
+                    ->route('changePassword')
+                    ->withErrors($validator)
+                    ->withInput();
         }
 
         $id=Auth::id();
+
         if (Hash::check($request->password,Auth::user()->password)) {
-            $request->user()->fill(['password' => Hash::make($request->newPassword)])->save();
+
+            $request->user()
+                    ->fill(['password' => Hash::make($request->newPassword)])
+                    ->save();
+
             return redirect()->route('homepage');
-        }else echo "sai mật khẩu";
+        }else 
+            echo "sai mật khẩu";
     }
 }

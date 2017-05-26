@@ -7,13 +7,17 @@ use Illuminate\Http\Request;
 use App\Comment;
 
 use Validator;
-use Auth;
 
+use Auth;
 
 use Illuminate\Support\Facades\DB;
 
 class CommentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('level');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -22,17 +26,6 @@ class CommentController extends Controller
     public function index()
     {
         return view('back-end.comment.index');
-        
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -43,75 +36,31 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
         $validator = Validator::make($request->all(), [
-            'txtRate' => 'required|min:1|max:5|numeric',
-            'txtBookId' => 'required|min:1|numeric',
-            'txtTitle' => 'required|min:3',
-            'txtContent' => 'required|min:3',
+            'txtRate'       => 'required|min:1|max:5|numeric',
+            'txtBookId'     => 'required|min:1|numeric',
+            'txtTitle'      => 'required|min:3',
+            'txtContent'    => 'required|min:3',
         ]);
+
         if ($validator->fails()) {
             return redirect()
-                        ->back()
-                        ->withErrors($validator)
-                        ->withInput();
+                    ->back()
+                    ->withErrors($validator)
+                    ->withInput();
         }
         $comment = new Comment;
 
-        $comment->book_id = $request->txtBookId;
-        $comment->title = $request->txtTitle;
-        $comment->user_id = Auth::id();
-        $comment->content = $request->txtContent;
-        $comment->rate = $request->txtRate;
+        $comment->book_id   = $request->txtBookId;
+        $comment->title     = $request->txtTitle;
+        $comment->user_id   = Auth::id();
+        $comment->content   = $request->txtContent;
+        $comment->rate      = $request->txtRate;
 
         $comment->save();
         return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
     public function getlist()
     {
         return DB::select("

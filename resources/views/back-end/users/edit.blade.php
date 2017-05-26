@@ -2,7 +2,6 @@
 @section('user-content')
     @php
     if(Auth::id()==$user->id || Auth::user()->level<=$user->level)
-      
       $disabled="disabled='disabled'";
     else
       $disabled='';

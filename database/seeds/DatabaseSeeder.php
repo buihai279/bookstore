@@ -16,7 +16,16 @@ class DatabaseSeeder extends Seeder
         $this->call(AuthorsSeederTable::class);
         $this->call(CompaniesSeederTable::class);
         $this->call(BooksSeederTable::class);
-        $this->call(SalesSeederTable::class);
+
+        $this->call(PaymentsSeederTable::class);
+
+        $this->call(OrdersSeederTable::class);
+
+        $this->call(OrderDetailsSeederTable::class);
+
+        $this->call(CommentsSeederTable::class);
+
         $this->call(SlidesSeederTable::class);
+        $this->call(SavesSeederTable::class);
     }
 }

@@ -1,5 +1,5 @@
-@extends('back-end.layouts.news-master')
-@section('news-content')
+@extends('back-end.layouts.master')
+@section('content')
 <div class="row"> 
   <form class="col s12 l8" method="POST"  enctype="multipart/form-data" action="{{ route('book.store') }}">
     {{ csrf_field() }}
@@ -160,12 +160,12 @@ $(function() {
   function transferCompleteImages(data){
       response = JSON.parse(data.currentTarget.response);
       if(response.success){
-          document.getElementById('message').innerHTML = "Successfully Uploaded Files!";
+          $('message').text("Successfully Uploaded Files!");
           for (var i = response.files.length - 1; i >= 0; i--) {
             var x = Math.floor((Math.random() * 999888999) + 1);
             var url=response.files[i];
             var node="<div class='item-image' id='item-image-"+x+"'><img src='"+'{{URL::to('/')}}'+url+"' height='150px'><input type='text' hidden='hidden' value='"+url+"' name='txtImages[]'><a class='waves-effect waves-light btn red' onclick='deleteImg("+x+")'><i class='material-icons'>delete</i></a></div>";
-            document.getElementById("images-book").append(node);
+            $("#images-book").append(node);
           }
       }
   }
@@ -184,11 +184,11 @@ $(function() {
   function transferCompleteAvatar(data){
       response = JSON.parse(data.currentTarget.response);
       if(response.success){
-            document.getElementById('messageAvatar').innerHTML = "Successfully Uploaded Files!";
+            $('#messageAvatar').text('Successfully Uploaded Files!');
             var url=response.file;
             // var node="<img src='"+url+"' height='150px'>";
-            document.getElementById("valueAvatar").val(url);
-            document.getElementById("book_image").attr('src','{{URL::to('/')}}'+url);
+            $("#valueAvatar").val(url);
+            $("#book_image").attr('src','{{URL::to('/')}}'+url);
       }
   }
 </script>

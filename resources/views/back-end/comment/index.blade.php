@@ -35,7 +35,7 @@
 		            <td>{{comment.content}}</td>
                 <td>{{comment.name}}</td>
 		            <td>
-			            <a href="comment/{{comment.id}}/edit" class="waves-effect waves-light btn" style="width: 35px;padding: 0">
+			            <a href="#!" class="waves-effect waves-light btn" style="width: 35px;padding: 0">
 				            <i class="material-icons">edit</i>
 			          	</a>
 		          </td>

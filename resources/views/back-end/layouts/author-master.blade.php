@@ -1,21 +1,16 @@
 @extends('back-end.layouts.master')
-@section('left-sidebar')
-        <div class="col l2  m2  s3 menu">
-
-			  <ul class="nav nav-pills nav-stacked">
-			    <li role="presentation" class="active">
-			        <a href="{{ route('author.create') }}" id="sub_studyresults">
-			            <span class="linkwrap">Thêm tác giả</span>
-			        </a>
-			    </li>
-			  </ul>
-        </div>
-@stop
 @section('content')
-        <div class="col l10  m10  s12">
-
+        <div class="col l12  m12  s12">
   @yield('author-content')
-        </div>
+        </div>   
+        <div class="fixed-action-btn toolbar">
+    <a class="btn-floating btn-large red">
+      <i class="large material-icons">menu</i>
+    </a>
+    <ul>
+      <li class="waves-effect waves-light red"><a href="{{ route('author.create') }}"><i class="material-icons">insert_chart</i>Thêm Tac gia</a></li>
+    </ul>
+  </div>
 @stop
 @section('footer')
   {{-- <script src="{{ URL::asset('lib/controller/UserController.js') }}"></script> --}}

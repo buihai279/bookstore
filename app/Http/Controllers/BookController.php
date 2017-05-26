@@ -7,15 +7,23 @@ use Illuminate\Http\Request;
 use Validator;
 
 use Storage;
+
 use App\Book;
+
 use App\Author;
+
 use App\Category;
-use App\http\Controllers\CategoryController;
-// use App\http\Controllers\AuthorController;
-use App\http\Controllers\CompanyController;
+
+use App\Http\Controllers\CategoryController;
+
+use App\Http\Controllers\CompanyController;
 
 class BookController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('level');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -85,20 +93,22 @@ class BookController extends Controller
             }
         }
         $book = new Book;
-        $book->book_name = $request->txtBook_name;
-        $book->description = $request->txtDescription;
-        $book->publish_date = $request->txtPublish_date;
-        $book->author_id = $request->txtAuthor;
-        $book->company_id = $request->txtCompany;
-        $book->category_id = $request->txtCategory;
+
+        $book->book_name        = $request->txtBook_name;
+        $book->description      = $request->txtDescription;
+        $book->publish_date     = $request->txtPublish_date;
+        $book->author_id        = $request->txtAuthor;
+        $book->company_id       = $request->txtCompany;
+        $book->category_id      = $request->txtCategory;
         $book->publishing_house = $request->txtPublish_house;
-        $book->translator = $request->txtTranslator;
-        $book->number_of_pages = $request->txtPage;
-        $book->quality = $request->txtQuality;
-        $book->price = $request->txtPrice;
-        $book->cover_price = $request->txtCover_price;
-        $book->book_image = $request->txtAvatarBook;
-        $book->images = json_encode($txtImages);
+        $book->translator       = $request->txtTranslator;
+        $book->number_of_pages  = $request->txtPage;
+        $book->quality          = $request->txtQuality;
+        $book->price            = $request->txtPrice;
+        $book->cover_price      = $request->txtCover_price;
+        $book->book_image       = $request->txtAvatarBook;
+        $book->images           = json_encode($txtImages);
+
         $book->save();
         return redirect()->route('book.index');
     }
@@ -174,20 +184,22 @@ class BookController extends Controller
             }
         }
         $book = Book::find($id);
-        $book->book_name = $request->txtBook_name;
-        $book->description = $request->txtDescription;
-        $book->publish_date = $request->txtPublish_date;
-        $book->author_id = $request->txtAuthor;
-        $book->company_id = $request->txtCompany;
-        $book->category_id = $request->txtCategory;
+        
+        $book->book_name        = $request->txtBook_name;
+        $book->description      = $request->txtDescription;
+        $book->publish_date     = $request->txtPublish_date;
+        $book->author_id        = $request->txtAuthor;
+        $book->company_id       = $request->txtCompany;
+        $book->category_id      = $request->txtCategory;
         $book->publishing_house = $request->txtPublish_house;
-        $book->translator = $request->txtTranslator;
-        $book->number_of_pages = $request->txtPage;
-        $book->quality = $request->txtQuality;
-        $book->price = $request->txtPrice;
-        $book->cover_price = $request->txtCover_price;
-        $book->book_image = $request->txtAvatarBook;
-        $book->images = json_encode($txtImages);
+        $book->translator       = $request->txtTranslator;
+        $book->number_of_pages  = $request->txtPage;
+        $book->quality          = $request->txtQuality;
+        $book->price            = $request->txtPrice;
+        $book->cover_price      = $request->txtCover_price;
+        $book->book_image       = $request->txtAvatarBook;
+        $book->images           = json_encode($txtImages);
+
         $book->save();
         return redirect()->route('book.index');
     }
@@ -216,11 +228,11 @@ class BookController extends Controller
     public function getlist()
     {
         return Book::orderBy('updated_at','desc')
-            ->select('books.id','book_name','author_name','book_image','publish_date','company_name','category_name')
-            ->leftJoin('authors', 'books.author_id', '=', 'authors.id')
-            ->leftJoin('companies', 'books.company_id', '=', 'companies.id')
-            ->leftJoin('categories', 'books.category_id', '=', 'categories.id')
-            ->get();
+                    ->select('books.id','book_name','author_name','book_image','publish_date','company_name','category_name')
+                    ->leftJoin('authors', 'books.author_id', '=', 'authors.id')
+                    ->leftJoin('companies', 'books.company_id', '=', 'companies.id')
+                    ->leftJoin('categories', 'books.category_id', '=', 'categories.id')
+                    ->get();
     }
     /**
      * Remove the specified resource from storage.

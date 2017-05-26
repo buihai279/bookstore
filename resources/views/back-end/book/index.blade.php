@@ -40,7 +40,7 @@
                   <a href="book/{{book.id}}/edit" class="waves-effect waves-light btn" style="width: 35px;padding: 0">
                     <i class="material-icons">edit</i>
                   </a>
-                  <a href="book/{{book.id}}" class="waves-effect waves-light btn blue lighten-4" style="width: 35px;padding: 0">
+                  <a href="sach/{{book.id}}" class="waves-effect waves-light btn blue lighten-4" style="width: 35px;padding: 0">
                     <i class="material-icons">remove_red_eye</i>
                   </a>
               </td>

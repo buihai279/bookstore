@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Validator;
+
 use Storage;
 
 use App\Slide;
 
 class SlideController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('level');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -41,11 +46,10 @@ class SlideController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->cb_status);
         $validator = Validator::make($request->all(), [
-            'txtLinkSlide' => '',
-            'txtImageSlide' => 'required',
-            'cb_status' => '',
+                    'txtLinkSlide'  => '',
+                    'txtImageSlide' => 'required',
+                    'cb_status'     => '',
         ]);
         if ($validator->fails()) {
             return redirect()
@@ -53,7 +57,8 @@ class SlideController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-        $request->cb_status = ($request->cb_status==null) ? false : true ;
+        $request->cb_status = ($request->cb_status=='on') ? 1 : 0 ;
+
         $slide = new Slide;
 
         $slide->link = $request->txtLinkSlide;
@@ -61,25 +66,19 @@ class SlideController extends Controller
         $slide->slide_image = $request->txtImageSlide;
 
         $slide->status = $request->cb_status;
+
         $count=Slide::count();
+
         if ($count==0)
             $slide->order =1;
         else 
             $slide->order=$count+1;
+
         $slide->save();
+
         return redirect()->route('slide.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -90,6 +89,7 @@ class SlideController extends Controller
     public function edit($id)
     {
         $slide=Slide::find($id);
+
         return view('back-end.slide.edit',['slide'=>$slide]);
     }
 
@@ -102,22 +102,27 @@ class SlideController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->cb_status = ($request->cb_status==null) ? false : true ;
+        $request->cb_status = ($request->cb_status=='on') ? 1 : 0 ;
+
         $validator = Validator::make($request->all(), [
-            // 'txtName' => 'required|min:1',
-            // 'txtslide' => '',
-            'txtImageSlide' => 'max:255',
+            'txtImageSlide' => 'max:255|min:4',
         ]);
+
         if ($validator->fails()) {
             return redirect()
                         ->route('slide.edit',$id)
                         ->withErrors($validator)
                         ->withInput();
         }
+
         $slide = Slide::find($id);
+
         $slide->link = $request->txtLinkSlide;
+
         $slide->status = $request->cb_status;
+
         $slide->slide_image = $request->txtImageSlide;
+
         $slide->save();
         return redirect()->route('slide.index');
     }
@@ -131,8 +136,9 @@ class SlideController extends Controller
     public function destroy($id)
     {
         if (Slide::find($id)!=null) {
+
             Slide::destroy($id);
-            // deletebook
+
             return redirect()->route('slide.index');
         }
     }
@@ -154,10 +160,12 @@ class SlideController extends Controller
      */
     public function order(Request $request)
     {
-        // dd($request);
         foreach ($request->order as $key => $value) {
+
             $slide = Slide::find($value);
+
             $slide->order = $key+1;
+
             $slide->save();
         }
         return redirect()->route('slide.index');
@@ -170,11 +178,17 @@ class SlideController extends Controller
      */
      public function uploadSlideImage(Request $request){
         $file = $request->file('file');
+
         if(!empty($file)):
+
             $info=pathinfo($file->getClientOriginalName());
+
             $name='slide-image/'.$info['filename'].time().'.'.$info['extension'];
+
             Storage::put($name, file_get_contents($file));
+
             $url = Storage::url('app/'.$name);
+
         endif;
         return \Response::json(array('success' => true,'file'=>$url));
     }

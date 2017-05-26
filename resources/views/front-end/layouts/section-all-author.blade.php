@@ -20,7 +20,7 @@
                         @endif
                     </div>
                     <div class="card-content ">
-                        <a  href="{{ route('viewBook',$author->authorId) }}" title="{{$author->author_name}}" >
+                        <a  href="{{ route('viewAuthor',$author->authorId) }}" title="{{$author->author_name}}" >
                             <span class="card-title">
                                 {{$author->author_name}}
                             </span>
@@ -28,7 +28,7 @@
                     </div>
                     <div class="card-action">
                         <div class="price-sale">
-                            <span class="review">{{$author->totalBook}} quyển</span>
+                            <span class="review">Tác giả của {{$author->totalBook}} đầu sách</span>
                         </div>
                     </div>
                 </div>
@@ -36,6 +36,3 @@
         @endforeach
     </div>
 </section>
-<div class="center-align">
-    {{-- {{ $authors->links() }} --}}
-</div>

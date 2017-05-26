@@ -27,15 +27,15 @@
 
 		        <tbody>
 		          <tr dir-paginate="company in companys | filter:q | itemsPerPage: pageSize" current-page="currentPage">
-		            <td>{{company.id}}</td>
+		            <td>{{company.companyId}}</td>
 		            <td>{{company.company_name}}</td>
 		            <td>{{company.company_info}}</td>
                 <td>
                   <img ng-if="company.company_image" width="70"  class="responsive-img" ng-src="http://localhost/bookstore{{company.company_image}}">
                 </td>
-		            <td>{{company.total}}</td>
+		            <td>{{company.totalBook}}</td>
 		            <td>
-			            <a href="company/{{company.id}}/edit" class="waves-effect waves-light btn" style="width: 35px;padding: 0">
+			            <a href="company/{{company.companyId}}/edit" class="waves-effect waves-light btn" style="width: 35px;padding: 0">
 				            <i class="material-icons">edit</i>
 			          	</a>
 		          </td>

@@ -13,10 +13,28 @@ class Author extends Model
 
     public $timestamps = false;
     
+
+    /**
+     *
+     *  relationship 1-n (1 Author - n Book)
+     *  
+     *
+     *
+     */
+    
+
     public function books()
     {
         return $this->hasMany('App\Book');
     }
+
+    /**
+     *
+     *  Get top Authors
+     *  Return Array json
+     *
+     */
+    
     public static function getTopAuthor()
     {
         return DB::select(" 
@@ -30,6 +48,14 @@ class Author extends Model
                         ");
 
     }
+
+
+    /**
+     *
+     *  Get top Authors in category
+     *  Return Array json
+     *
+     */
     public static function getTopAuthorInCategories($categories=array())
     {
     	$strCate=implode(',', $categories);
@@ -44,8 +70,14 @@ class Author extends Model
                             GROUP BY a.id,a.author_name,a.author_info,a.author_image
                             ORDER BY total DESC
                         ");
-
     }
+
+    /**
+     *
+     *  Get top all author
+     *  Return Array json
+     *
+     */
     public static function getlistAuthor()
     {
         return Author::select('id','author_name','author_image')
@@ -53,6 +85,14 @@ class Author extends Model
                         ->orderBy('author_name')
                         ->get();
     }
+
+
+    /**
+     *
+     *  Get all Authors order by total book
+     *  Return Array json
+     *
+     */
     public static function getAllAuthor()
     {
         return  DB::select("SELECT a.id as authorId,

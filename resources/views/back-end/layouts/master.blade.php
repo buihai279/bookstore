@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>App Name - @yield('title')</title>
+    <title>@yield('title') - Website bán sách</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link type="text/css" rel="stylesheet" href="{{ URL::asset('bh279_front-end/css/icon.css') }}"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="{{ URL::asset('bh279_front-end/css/materialize.min.css') }}"  media="screen,projection"/>
@@ -18,6 +18,7 @@
 <script src="{{ URL::asset('lib/angular.min.js') }}"></script>
 <script src="{{ URL::asset('lib/app.js') }}"></script>
   <script src="{{ URL::asset('lib/tinymce/tinymce.min.js') }}"></script>
+    <link rel="icon" href="https://vcdn.tikicdn.com/assets/media/favicon.ico" type="image/x-icon">
   <script>tinymce.init({ selector:'textarea' });</script>
 </head>
 <body >
@@ -26,7 +27,7 @@
      <nav>
     <div class="container">
         <div class="nav-wrapper">
-          <a href="{{ route('homepage') }}" class="brand-logo">Logo</a>
+          <a href="{{ route('homepage') }}" class="brand-logo">Tiki</a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
                @if (Auth::guest())
                     <li><a href="{{ route('login') }}">Login</a></li>
@@ -57,8 +58,12 @@
     {{-- end row --}}
     <div class="row">
         <div class="owl-carousel owl-carousel-menu " style="border-bottom: 1px solid #e0e0e0">
-            <div class="item">
-                <a href="/"><i class="material-icons">dashboard</i><span>Bảng điều khiển</span></a>
+            <div class="item @if (Request::url()==route('dashboard'))
+                    active
+                @else
+                    
+                @endif">
+                <a href="{{ route('dashboard') }}"><i class="material-icons">dashboard</i><span>Bảng điều khiển</span></a>
             </div>
             <div class="item">
                 <a href="{{ route('book.index') }}"><i class="material-icons">library_books</i><span>Sách</span></a>
@@ -80,14 +85,6 @@
             </div>
             <div class="item">
                 <a href="{{ route('order.index') }}"><i class="material-icons">format_list_numbered</i> <span>Đơn hàng</span></a>
-            </div>
-            <div class="item">
-                <a href="{{ route('payment.index') }}">  <i class="material-icons">credit_card</i><span>Thanh toán</span></a>
-            </div>
-            <div class="item">
-                <a href="{{ route('sale.index') }}">  
-                    <i class="material-icons">credit_card</i><span>Mã giảm giá</span>
-                </a>
             </div>
             <div class="item">
                 <a href="{{ route('slide.index') }}">  <i class="material-icons">photo_size_select_actual</i><span>Slide</span></a>

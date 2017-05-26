@@ -28,7 +28,7 @@
                     </div>
                     <div class="card-action">
                         <div class="price-sale">
-                            <span class="review">{{$company->totalBook}} quyển</span>
+                            <span class="review">phát hành {{$company->totalBook}} đầu sách</span>
                         </div>
                     </div>
                 </div>
@@ -36,6 +36,3 @@
         @endforeach
     </div>
 </section>
-<div class="center-align">
-    {{-- {{ $companies->links() }} --}}
-</div>

@@ -17,15 +17,16 @@
           <form action="{{ route('slide.order') }}" method="POST">
           {{ csrf_field() }}
           @verbatim 
+          <b style="color: red">Kéo thả ảnh để thay đổi thứ tự </b>
               <table>
 		        <thead>
 		          <tr>
 		              <th data-field="id">Id</th>
 		              <th data-field="name">Ảnh slide</th>
 		              <th data-field="image">link</th>
-		              <th data-field="image">status</th>
-		              <th data-field="total">order</th>
-		              <th data-field="total">created_at</th>
+		              <th data-field="image">Hiển thị</th>
+		              <th data-field="total">Sắp xếp</th>
+		              <th data-field="total">ngày tạo</th>
 		          </tr>
 		        </thead>
 
@@ -36,7 +37,17 @@
                 <img ng-if="slide.slide_image" width="70"  class="responsive-img" ng-src="http://localhost/bookstore{{slide.slide_image}}">
                 </td>
 		            <td>{{slide.link}}</td>
-		            <td>{{slide.status}}</td>
+		            <td>
+                  <div class="switch">
+                    <label>
+                      Off
+                      <input type="checkbox" disabled ng-checked="{{slide.status}}">
+                      <span class="lever"></span>
+                      On
+                    </label>
+                  </div>
+                  
+                </td>
 		            <td>{{slide.order}}</td>
 		            <td>{{slide.created_at}}</td>
 
@@ -48,7 +59,7 @@
 		          </tr>
 		        </tbody>
 		      </table>
-          <button type="submit">submit</button>
+          <button type="submit" class="btn">sắp xếp lại thứ tự</button>
           </form>
         </div>
 

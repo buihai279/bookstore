@@ -16,12 +16,26 @@ class Company extends Model
     {
         return $this->hasMany('App\Book');
     }
+    public static function getTopCompany()
+    {
+        return DB::select(" 
+                            SELECT com.id,com.company_name,sum(od.quality) as total,com.company_image  
+                            FROM books as b
+                            LEFT OUTER JOIN companies  as com
+                            ON b.company_id=com.id
+                            LEFT OUTER JOIN order_details  as od
+                            ON b.id=od.book_id
+                            GROUP BY com.id,com.company_name,com.company_image
+                            ORDER BY total DESC
+                            LIMIT 8
+                        ");
+
+    }
     public static function getTopCompanyInCategories($categories=array())
     {
-    	// return $companies;
-    	$strCate=implode(',', $categories);
+        $strCate=implode(',', $categories);
         return DB::select(" 
-        					SELECT com.id,com.company_name,count(b.id) as total 
+                            SELECT com.id,com.company_name,count(b.id) as total 
                             FROM books as b
                             LEFT OUTER JOIN categories  as c
                             ON c.id = b.category_id
@@ -45,4 +59,5 @@ class Company extends Model
                             ORDER BY totalBook DESC
                         ");
     }
+
 }
