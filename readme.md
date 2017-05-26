@@ -23,12 +23,12 @@
 
 ## DEMO
 
-<p align="center"><img src="http://imgur.com/NPti9Jf"></p>
-<p align="center"><img src="http://imgur.com/zErhuJA"></p>
-<p align="center"><img src="http://imgur.com/Rq2aBLu"></p>
-<p align="center"><img src="http://imgur.com/HTZUgIq"></p>
-<p align="center"><img src="http://imgur.com/iZRqqEw"></p>
-<p align="center"><img src="http://imgur.com/Mijs78s"></p>
+<p align="center"><img src="http://i.imgur.com/NPti9Jf.png"></p>
+<p align="center"><img src="http://i.imgur.com/zErhuJA.png"></p>
+<p align="center"><img src="http://i.imgur.com/Rq2aBLu.png"></p>
+<p align="center"><img src="http://i.imgur.com/HTZUgIq.png"></p>
+<p align="center"><img src="http://i.imgur.com/iZRqqEw.png"></p>
+<p align="center"><img src="http://i.imgur.com/Mijs78s.png"></p>
 
 ## About Laravel
 
