@@ -4,35 +4,30 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
-
-
 ## Hướng dẫn cài đặt
+==================SETUP  --  Cách 1========================
+1.Chạy file setup.bat 
+2.Chạy file import-data.bat (chờ 1-2 phút để nó tự tạo database và import dữ liệu vào database)
 
 
-<br>
-==================SETUP  --  Cách 1========================<br>
-1.Chạy file setup.bat (chờ 1-2 phút để nó tự tạo database và import dữ liệu vào database)<br>
-
-
-
-==================SETUP  --  Cách 2========================<br>
-1.Tạo database 'bh279_bookstore'<br>
-2.Importdatabase với file bh279_bookstore.sql trong thư mục backup-database-doc-mdj<br>
-3.Đăng nhập với tài khoản buihai2603@gmail.com - 123456<br>
+==================SETUP  --  Cách 2========================
+1.Tạo database 'bh279_bookstore'
+2.Importdatabase với file bh279_bookstore.sql trong thư mục backup-database-doc-mdj
+3.Đăng nhập với tài khoản buihai2603@gmail.com - 123456
 
 
 
-=========ROLLBACK lại dữ liệu======<br>
-1.Chạy file rollback.bat (chờ 1-2 phút để nó import dữ liệu vào database)<br>
+=========ROLLBACK lại dữ liệu======
+1.Chạy file rollback.bat (chờ 1-2 phút để nó import dữ liệu vào database)
 
 ## DEMO
 
-<p align="center"><img src="http://i.imgur.com/NPti9Jf.png"></p>
-<p align="center"><img src="http://i.imgur.com/zErhuJA.png"></p>
-<p align="center"><img src="http://i.imgur.com/Rq2aBLu.png"></p>
-<p align="center"><img src="http://i.imgur.com/HTZUgIq.png"></p>
-<p align="center"><img src="http://i.imgur.com/iZRqqEw.png"></p>
-<p align="center"><img src="http://i.imgur.com/Mijs78s.png"></p>
+<p align="center"><img src="http://imgur.com/NPti9Jf"></p>
+<p align="center"><img src="http://imgur.com/zErhuJA"></p>
+<p align="center"><img src="http://imgur.com/Rq2aBLu"></p>
+<p align="center"><img src="http://imgur.com/HTZUgIq"></p>
+<p align="center"><img src="http://imgur.com/iZRqqEw"></p>
+<p align="center"><img src="http://imgur.com/Mijs78s"></p>
 
 ## About Laravel
 
